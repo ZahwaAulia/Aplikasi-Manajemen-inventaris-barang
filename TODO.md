@@ -1,41 +1,33 @@
-# TODO List for Inventory Management App
+# TODO List for Inventory Management Web Application
 
-## 1. Database & Models
-- [ ] Create migration to add 'role' column to users table
-- [ ] Update User model with role attribute
-- [ ] Run migrations
+## Phase 1: Authentication and Middleware
+- [ ] Implement RoleMiddleware logic for role-based access control
+- [ ] Update routes/web.php with middleware groups for Admin, Staff, Guest
+- [ ] Ensure authentication routes are properly configured
 
-## 2. Authentication & Middleware
-- [ ] Install Laravel Breeze
-- [ ] Create RoleMiddleware
-- [ ] Register middleware
-- [ ] Update routes with authentication and role protection
+## Phase 2: Controllers
+- [ ] Create CategoryController with CRUD operations
+- [ ] Create SupplierController with CRUD operations
+- [ ] Update DashboardController to show role-specific data
+- [ ] Update ItemController with search, filter, and pagination enhancements
 
-## 3. Controllers & CRUD
-- [ ] Create CategoryController with full CRUD
-- [ ] Create SupplierController with full CRUD
-- [ ] Update ItemController with search/filter
-- [ ] Update DashboardController with real stats
+## Phase 3: Views and UI
+- [ ] Create login view with role selection
+- [ ] Create admin dashboard view
+- [ ] Create staff dashboard view
+- [ ] Create guest dashboard view (public data)
+- [ ] Create CRUD views for items, categories, suppliers with role restrictions
+- [ ] Implement partial views for forms and lists
+- [ ] Add pagination, search, and filter to views
 
-## 4. Views
-- [ ] Create auth views (login/register) via Breeze
-- [ ] Create admin views for categories (index, create, edit)
-- [ ] Create admin views for suppliers (index, create, edit)
-- [ ] Update admin items views (edit, show)
-- [ ] Create guest views (public item list)
-- [ ] Create partial views (item card, etc.)
-- [ ] Update sidebar navigation
-- [ ] Update dashboard with real data
+## Phase 4: Validation and Upload
+- [ ] Add form validation to all controllers
+- [ ] Implement file upload for item images
+- [ ] Ensure validation rules are comprehensive
 
-## 5. Seeders & Testing
-- [ ] Create RoleSeeder
-- [ ] Create sample data seeders
-- [ ] Run seeders
-- [ ] Build assets
-- [ ] Test all functionality
-
-## 6. Final Touches
-- [ ] Ensure file uploads work
-- [ ] Add pagination to all lists
-- [ ] Implement search/filter UI
-- [ ] Role-based access verification
+## Phase 5: Testing and Finalization
+- [ ] Run migrations and seeders
+- [ ] Test role-based access
+- [ ] Test CRUD operations
+- [ ] Verify search, filter, pagination
+- [ ] Test file uploads
