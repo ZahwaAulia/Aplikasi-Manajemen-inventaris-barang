@@ -15,10 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('stock_quantity');
-            $table->decimal('price', 10, 2);
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->integer('stock_quantity')->default(0);
+            $table->decimal('unit_price', 10, 2)->nullable();
+            $table->string('location')->nullable();
+            $table->enum('condition', ['baik', 'rusak', 'perlu_perbaikan']);
+            $table->date('purchase_date')->nullable();
+            $table->date('warranty_expiry')->nullable();
+            $table->enum('status', ['tersedia', 'dipinjam', 'dikeluarkan']);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
