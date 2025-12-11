@@ -7,7 +7,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Supplier;
 
-class DasboardController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
