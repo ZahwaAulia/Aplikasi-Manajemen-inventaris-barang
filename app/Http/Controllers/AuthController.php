@@ -17,7 +17,8 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'role' => 'required|in:admin,staff,guest'
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
@@ -25,11 +26,16 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            if ($user->isAdmin()) {
+            // Update user role if different from selected
+            if ($user->role !== $request->role) {
+                $user->update(['role' => $request->role]);
+            }
+
+            if ($request->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             }
 
-            if ($user->isStaff()) {
+            if ($request->role === 'staff') {
                 return redirect()->route('staff.dashboard');
             }
 

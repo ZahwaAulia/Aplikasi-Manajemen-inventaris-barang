@@ -19,7 +19,8 @@ class Item extends Model
         'condition',
         'purchase_date',
         'warranty_expiry',
-        'status'
+        'status',
+        'image'
     ];
 
     protected $casts = [

@@ -37,7 +37,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
-                        <p class="mt-3 text-center">Don't have an account? <a href="{{ route('register') }}">Register</a></p>
+                        <p class="mt-3 text-center">Contact administrator for account access</p>
                         @if (session('status'))
                             <div class="alert alert-success mt-3">{{ session('status') }}</div>
                         @endif
