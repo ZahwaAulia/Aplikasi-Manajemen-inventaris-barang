@@ -4,59 +4,79 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// Guest Routes
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/guest/dashboard', [DashboardController::class, 'guest'])->name('guest.dashboard');
+Route::get('/guest/dashboard', [DashboardController::class, 'guest'])
+    ->name('guest.dashboard.public');
 
 
+Route::get('/login', [AuthController::class, 'showLogin'])
+    ->name('login');
 
-// Protected Routes
+// Proses login
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.process');
+
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
 Route::middleware(['auth'])->group(function () {
 
-    // Admin Routes
-    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
 
-        // Item Management
-        Route::resource('items', ItemController::class);
+    Route::middleware(['role:admin'])
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
 
-        // Category Management
-        Route::resource('categories', CategoryController::class);
+            Route::get('/dashboard', [DashboardController::class, 'admin'])
+                ->name('dashboard');
 
-        // Supplier Management
-        Route::resource('suppliers', SupplierController::class);
-    });
+            Route::resource('items', ItemController::class);
+            Route::resource('categories', CategoryController::class);
+            Route::resource('suppliers', SupplierController::class);
+        });
 
-    // Staff Routes
-    Route::middleware(['role:staff'])->prefix('staff')->name('staff.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'staff'])->name('dashboard');
 
-        // Limited Item Management (Read, Update)
-        Route::get('items', [ItemController::class, 'index'])->name('items.index');
-        Route::get('items/{item}', [ItemController::class, 'show'])->name('items.show');
-        Route::get('items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
-        Route::put('items/{item}', [ItemController::class, 'update'])->name('items.update');
+    Route::middleware(['role:staff'])
+        ->prefix('staff')
+        ->name('staff.')
+        ->group(function () {
 
-        // Category and Supplier Read Only
-        Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-        Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
-    });
+            Route::get('/dashboard', [DashboardController::class, 'staff'])
+                ->name('dashboard');
 
-    // Guest Routes (Authenticated Guest)
-    Route::middleware(['role:guest'])->prefix('guest')->name('guest.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'guest'])->name('dashboard');
+            // Item khusus staff (read/update)
+            Route::get('items', [ItemController::class, 'index'])->name('items.index');
+            Route::get('items/{item}', [ItemController::class, 'show'])->name('items.show');
+            Route::get('items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+            Route::put('items/{item}', [ItemController::class, 'update'])->name('items.update');
 
-        // Read Only Access
-        Route::get('items', [ItemController::class, 'index'])->name('items.index');
-        Route::get('items/{item}', [ItemController::class, 'show'])->name('items.show');
-        Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-        Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
-    });
+            // Category & Supplier read-only
+            Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+            Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+        });
+
+
+
+    Route::middleware(['role:guest'])
+        ->prefix('guest')
+        ->name('guest.')
+        ->group(function () {
+
+            Route::get('/dashboard', [DashboardController::class, 'guest'])
+                ->name('dashboard');
+
+            // Read only
+            Route::get('items', [ItemController::class, 'index'])->name('items.index');
+            Route::get('items/{item}', [ItemController::class, 'show'])->name('items.show');
+            Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+            Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+        });
 });
-
