@@ -12,15 +12,10 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $totalItems = Item::count();
-        $lowStockItems = Item::where('stock_quantity', '<', 10)->count(); // Assuming low stock is less than 10
-        $totalCategories = Category::count();
-        $totalSuppliers = Supplier::count();
+       public function index() {
+    return view('admin.dashboard');
+}
 
-        return view('admin.dashboard', compact('totalItems', 'lowStockItems', 'totalCategories', 'totalSuppliers'));
-    }
 
     /**
      * Show the form for creating a new resource.

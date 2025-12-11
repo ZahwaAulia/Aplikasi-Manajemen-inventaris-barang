@@ -12,8 +12,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/guest/dashboard', [DashboardController::class, 'guest'])
-    ->name('guest.dashboard.public');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
 
 
 Route::get('/login', [AuthController::class, 'showLogin'])
