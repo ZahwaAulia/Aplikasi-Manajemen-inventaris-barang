@@ -12,9 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/guest/dashboard', [DashboardController::class, 'guest'])->name('guest.dashboard');
-
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
