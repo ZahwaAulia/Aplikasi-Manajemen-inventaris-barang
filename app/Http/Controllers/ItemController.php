@@ -13,10 +13,36 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::with(['category', 'supplier'])->paginate(10);
-        return view('admin.items.index', compact('items'));
+        $query = Item::with(['category', 'supplier']);
+
+        // Search functionality
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%')
+                  ->orWhere('location', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter by category
+        if ($request->has('category_id') && !empty($request->category_id)) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Filter by status
+        if ($request->has('status') && !empty($request->status)) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by condition
+        if ($request->has('condition') && !empty($request->condition)) {
+            $query->where('condition', $request->condition);
+        }
+
+        $items = $query->paginate(10)->withQueryString();
+        $categories = Category::all();
+
+        return view('admin.items.index', compact('items', 'categories'));
     }
 
     /**
