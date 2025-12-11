@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
+use App\Models\Category;
+use App\Models\Supplier;
 
 class DasboardController extends Controller
 {
@@ -11,7 +14,12 @@ class DasboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $totalItems = Item::count();
+        $lowStockItems = Item::where('stock_quantity', '<', 10)->count(); // Assuming low stock is less than 10
+        $totalCategories = Category::count();
+        $totalSuppliers = Supplier::count();
+
+        return view('admin.dashboard', compact('totalItems', 'lowStockItems', 'totalCategories', 'totalSuppliers'));
     }
 
     /**
