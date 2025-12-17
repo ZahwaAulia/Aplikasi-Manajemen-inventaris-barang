@@ -29,7 +29,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Barang Tersedia</p>
-                                <h5 class="font-weight-bolder">{{ $availableItems }}</h5>
+                                <h5 class="font-weight-bolder">{{ $availableItems ?? 0 }}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -67,7 +67,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Barang Rusak</p>
-                                <h5 class="font-weight-bolder">{{ $damagedItems }}</h5>
+                                <h5 class="font-weight-bolder">{{ $damagedItems ?? 0 }}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">

@@ -1,5 +1,7 @@
-ItemSeeder::class,
+        $this->call([
+            CategorySeeder::class,
             SupplierSeeder::class,
+            ItemSeeder::class,
         ]);
 =======
         $this->call([

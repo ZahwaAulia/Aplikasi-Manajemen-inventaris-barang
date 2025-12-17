@@ -10,7 +10,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Barang</p>
-                                <h5 class="font-weight-bolder">{{ $totalItems }}</h5>
+                                <h5 class="font-weight-bolder">{{ $totalItems ?? 0 }}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -29,7 +29,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Kategori</p>
-                                <h5 class="font-weight-bolder">{{ $totalCategories }}</h5>
+                                <h5 class="font-weight-bolder">{{ $totalCategories ?? 0 }}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -48,7 +48,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Supplier</p>
-                                <h5 class="font-weight-bolder">{{ $totalSuppliers }}</h5>
+                                <h5 class="font-weight-bolder">{{ $totalSuppliers ?? 0 }}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -67,7 +67,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Barang Tersedia</p>
-                                <h5 class="font-weight-bolder">{{ $availableItems }}</h5>
+                                <h5 class="font-weight-bolder">{{ $availableItems ?? 0 }}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -91,13 +91,13 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="text-center">
-                                <h4 class="font-weight-bolder text-success">{{ $availableItems }}</h4>
+                                <h4 class="font-weight-bolder text-success">{{ $availableItems ?? 0 }}</h4>
                                 <p class="text-sm mb-0">Tersedia</p>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="text-center">
-                                <h4 class="font-weight-bolder text-warning">{{ $borrowedItems }}</h4>
+                                <h4 class="font-weight-bolder text-warning">{{ $borrowedItems ?? 0 }}</h4>
                                 <p class="text-sm mb-0">Dipinjam</p>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                                <h4 class="font-weight-bolder text-danger">{{ $damagedItems }}</h4>
+                                <h4 class="font-weight-bolder text-danger">{{ $damagedItems ?? 0 }}</h4>
                                 <p class="text-sm mb-0">Rusak</p>
                             </div>
                         </div>
