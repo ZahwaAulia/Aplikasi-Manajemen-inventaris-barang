@@ -35,7 +35,6 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Contact Person</th>
                                     <th>Email</th>
                                     <th>Telepon</th>
                                     <th>Aksi</th>
@@ -45,9 +44,8 @@
                                 @forelse($suppliers as $supplier)
                                     <tr>
                                         <td>{{ $supplier->name }}</td>
-                                        <td>{{ $supplier->contact_person ?? 'N/A' }}</td>
-                                        <td>{{ $supplier->email ?? 'N/A' }}</td>
-                                        <td>{{ $supplier->phone ?? 'N/A' }}</td>
+                                        <td>{{ $supplier->contact_email ?? 'N/A' }}</td>
+                                        <td>{{ $supplier->contact_phone ?? 'N/A' }}</td>
                                         <td>
                                             <a href="{{ route('staff.suppliers.show', $supplier) }}" class="btn btn-sm btn-info">
                                                 <i class="fas fa-eye"></i>
@@ -56,7 +54,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada data supplier.</td>
+                                        <td colspan="4" class="text-center">Tidak ada data supplier.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
