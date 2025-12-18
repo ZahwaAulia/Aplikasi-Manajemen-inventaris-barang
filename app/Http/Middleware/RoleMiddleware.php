@@ -23,7 +23,16 @@ class RoleMiddleware
         $user = Auth::user();
 
         if (!in_array($user->role, $roles)) {
-            abort(403, 'Unauthorized access.');
+            // Redirect to appropriate dashboard based on user role
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->isStaff()) {
+                return redirect()->route('staff.dashboard');
+            } elseif ($user->isGuest()) {
+                return redirect()->route('guest.dashboard');
+            } else {
+                abort(403, 'Unauthorized access.');
+            }
         }
 
         return $next($request);

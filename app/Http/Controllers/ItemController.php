@@ -42,7 +42,8 @@ class ItemController extends Controller
         $items = $query->paginate(10)->withQueryString();
         $categories = Category::all();
 
-        return view('admin.items.index', compact('items', 'categories'));
+        $view = auth()->user()->isStaff() ? 'staff.items.index' : 'admin.items.index';
+        return view($view, compact('items', 'categories'));
     }
 
     /**
@@ -52,7 +53,8 @@ class ItemController extends Controller
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
-        return view('admin.items.create', compact('categories', 'suppliers'));
+        $view = auth()->user()->isStaff() ? 'staff.items.create' : 'admin.items.create';
+        return view($view, compact('categories', 'suppliers'));
     }
 
     /**
@@ -83,7 +85,8 @@ class ItemController extends Controller
 
         Item::create($data);
 
-        return redirect()->route('admin.items.index')->with('success', 'Barang berhasil ditambahkan.');
+        $redirectRoute = auth()->user()->isStaff() ? 'staff.items.index' : 'admin.items.index';
+        return redirect()->route($redirectRoute)->with('success', 'Barang berhasil ditambahkan.');
     }
 
     /**
@@ -92,7 +95,8 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         $item->load(['category', 'supplier']);
-        return view('admin.items.show', compact('item'));
+        $view = auth()->user()->isStaff() ? 'staff.items.show' : 'admin.items.show';
+        return view($view, compact('item'));
     }
 
     /**
@@ -102,7 +106,8 @@ class ItemController extends Controller
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
-        return view('admin.items.edit', compact('item', 'categories', 'suppliers'));
+        $view = auth()->user()->isStaff() ? 'staff.items.edit' : 'admin.items.edit';
+        return view($view, compact('item', 'categories', 'suppliers'));
     }
 
     /**
@@ -137,7 +142,8 @@ class ItemController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('admin.items.index')->with('success', 'Barang berhasil diperbarui.');
+        $redirectRoute = auth()->user()->isStaff() ? 'staff.items.index' : 'admin.items.index';
+        return redirect()->route($redirectRoute)->with('success', 'Barang berhasil diperbarui.');
     }
 
     /**
@@ -152,6 +158,7 @@ class ItemController extends Controller
 
         $item->delete();
 
-        return redirect()->route('admin.items.index')->with('success', 'Barang berhasil dihapus.');
+        $redirectRoute = auth()->user()->isStaff() ? 'staff.items.index' : 'admin.items.index';
+        return redirect()->route($redirectRoute)->with('success', 'Barang berhasil dihapus.');
     }
 }

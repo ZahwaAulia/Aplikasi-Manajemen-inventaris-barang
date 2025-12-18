@@ -19,6 +19,27 @@ class DashboardController extends Controller
         $borrowedItems  = Item::where('status', 'dipinjam')->count();
         $damagedItems = Item::where('status', 'dikeluarkan')->count();
 
+        // Data for charts
+        $itemStatusData = [
+            'tersedia' => $availableItems,
+            'dipinjam' => $borrowedItems,
+            'dikeluarkan' => $damagedItems,
+        ];
+
+        // Recent items
+        $recentItems = Item::with(['category', 'supplier'])->latest()->take(5)->get();
+
+        // Categories with item counts
+        $categoriesWithCounts = Category::withCount('items')->get();
+
+        // Monthly item additions (simplified)
+        $monthlyItems = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $monthlyItems[] = Item::whereYear('created_at', $date->year)
+                ->whereMonth('created_at', $date->month)
+                ->count();
+        }
 
         return view('admin.dashboard', compact(
             'totalItems',
@@ -26,7 +47,11 @@ class DashboardController extends Controller
             'totalSuppliers',
             'availableItems',
             'borrowedItems',
-            'damagedItems'
+            'damagedItems',
+            'itemStatusData',
+            'recentItems',
+            'categoriesWithCounts',
+            'monthlyItems'
         ));
     }
 

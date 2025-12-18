@@ -5,8 +5,11 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Kelola Barang</h4>
+                    <a href="{{ route('staff.items.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Tambah Barang
+                    </a>
                 </div>
                 <div class="card-body">
                     <!-- Search and Filter Form -->
@@ -19,9 +22,9 @@
                                 <select name="category_id" class="form-control">
                                     <option value="">Semua Kategori</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
-                                        </option>
+                                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -69,41 +72,41 @@
                             </thead>
                             <tbody>
                                 @forelse($items as $item)
-                                    <tr>
-                                        <td>
-                                            @if($item->image)
-                                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="50" height="50" class="rounded">
-                                            @else
-                                                <span class="text-muted">No Image</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->category->name ?? 'N/A' }}</td>
-                                        <td>{{ $item->supplier->name ?? 'N/A' }}</td>
-                                        <td>{{ $item->stock_quantity }}</td>
-                                        <td>
-                                            <span class="badge bg-{{ $item->condition == 'baik' ? 'success' : ($item->condition == 'rusak' ? 'danger' : 'warning') }}">
-                                                {{ ucfirst(str_replace('_', ' ', $item->condition)) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-{{ $item->status == 'tersedia' ? 'success' : ($item->status == 'dipinjam' ? 'warning' : 'secondary') }}">
-                                                {{ ucfirst($item->status) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('staff.items.show', $item) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('staff.items.edit', $item) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        @if($item->image)
+                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="50" height="50" class="rounded">
+                                        @else
+                                        <span class="text-muted">No Image</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->category->name ?? 'N/A' }}</td>
+                                    <td>{{ $item->supplier->name ?? 'N/A' }}</td>
+                                    <td>{{ $item->stock_quantity }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ $item->condition == 'baik' ? 'success' : ($item->condition == 'rusak' ? 'danger' : 'warning') }}">
+                                            {{ ucfirst(str_replace('_', ' ', $item->condition)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ $item->status == 'tersedia' ? 'success' : ($item->status == 'dipinjam' ? 'warning' : 'secondary') }}">
+                                            {{ ucfirst($item->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="d-flex gap-1">
+                                        <a href="{{ route('staff.items.show', $item) }}" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye me-1"></i> Detail
+                                        </a>
+                                        <a href="{{ route('staff.items.edit', $item) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </a>
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="8" class="text-center">Tidak ada data barang.</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada data barang.</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>

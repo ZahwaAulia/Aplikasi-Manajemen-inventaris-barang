@@ -10,7 +10,8 @@ class Supplier extends Model
         'name',
         'contact_email',
         'contact_phone',
-        'address'
+        'address',
+        'status'
     ];
 
     public function items()

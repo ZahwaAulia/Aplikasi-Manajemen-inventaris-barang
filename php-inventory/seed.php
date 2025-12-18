@@ -1,6 +1,31 @@
 <?php
 include 'config.php';
 
+// Create users table if it doesn't exist
+$conn->query("CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'staff', 'guest') NOT NULL DEFAULT 'guest',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)");
+
+// Sample users
+$users = [
+    ['name' => 'Administrator', 'email' => 'admin@example.com', 'password' => password_hash('admin123', PASSWORD_DEFAULT), 'role' => 'admin'],
+    ['name' => 'Staff Member', 'email' => 'staff@example.com', 'password' => password_hash('staff123', PASSWORD_DEFAULT), 'role' => 'staff'],
+    ['name' => 'Guest User', 'email' => 'guest@example.com', 'password' => password_hash('guest123', PASSWORD_DEFAULT), 'role' => 'guest']
+];
+
+// Insert users
+foreach ($users as $user) {
+    $stmt = $conn->prepare("INSERT IGNORE INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $user['name'], $user['email'], $user['password'], $user['role']);
+    $stmt->execute();
+    $stmt->close();
+}
+
 // Sample data for categories
 $categories = [
     ['name' => 'Elektronik', 'description' => 'Barang elektronik dan gadget'],
@@ -56,7 +81,12 @@ foreach ($items as $item) {
 }
 
 echo "Data sampel berhasil dimasukkan ke database!";
-echo "<br><a href='index.php'>Kembali ke Dashboard</a>";
+echo "<br><br>";
+echo "<strong>Akun Test:</strong><br>";
+echo "Admin: admin@example.com / admin123<br>";
+echo "Staff: staff@example.com / staff123<br>";
+echo "Guest: guest@example.com / guest123<br>";
+echo "<br><a href='login.php'>Login</a> | <a href='register.php'>Register</a> | <a href='index.php'>Dashboard</a>";
 
 $conn->close();
 ?>

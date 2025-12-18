@@ -23,7 +23,8 @@ class SupplierController extends Controller
 
         $suppliers = $query->paginate(10);
 
-        return view('admin.suppliers.index', compact('suppliers'));
+        $view = auth()->user()->role === 'staff' ? 'staff.suppliers.index' : 'admin.suppliers.index';
+        return view($view, compact('suppliers'));
     }
 
     /**
@@ -31,7 +32,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('admin.suppliers.create');
+        $view = auth()->user()->role === 'staff' ? 'staff.suppliers.create' : 'admin.suppliers.create';
+        return view($view);
     }
 
     /**
@@ -41,15 +43,18 @@ class SupplierController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'contact_person' => 'nullable|string|max:255',
             'contact_email' => 'nullable|email|max:255',
             'contact_phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
 
-        Supplier::create($request->all());
+        $data = $request->all();
+        $data['status'] = auth()->user()->role === 'staff' ? 'pending' : 'approved';
 
-        return redirect()->route('admin.suppliers.index')->with('success', 'Supplier berhasil ditambahkan.');
+        Supplier::create($data);
+
+        $route = auth()->user()->role === 'staff' ? 'staff.suppliers.index' : 'admin.suppliers.index';
+        return redirect()->route($route)->with('success', 'Supplier berhasil ditambahkan.');
     }
 
     /**
@@ -75,7 +80,6 @@ class SupplierController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'contact_person' => 'nullable|string|max:255',
             'contact_email' => 'nullable|email|max:255',
             'contact_phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',

@@ -15,6 +15,8 @@ Route::get('/', function () {
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected Routes (Require Authentication)
@@ -49,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
 
             // Supplier Management
             Route::resource('suppliers', SupplierController::class);
+            Route::post('suppliers/{supplier}/approve', [SupplierController::class, 'approve'])->name('suppliers.approve');
         });
 
     // Staff Routes
@@ -62,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
             // Item Management (Limited)
             Route::get('items', [ItemController::class, 'index'])->name('items.index');
+            Route::get('items/create', [ItemController::class, 'create'])->name('items.create');
+            Route::post('items', [ItemController::class, 'store'])->name('items.store');
             Route::get('items/{item}', [ItemController::class, 'show'])->name('items.show');
             Route::get('items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
             Route::put('items/{item}', [ItemController::class, 'update'])->name('items.update');
@@ -69,6 +74,9 @@ Route::middleware(['auth'])->group(function () {
             // Category & Supplier (Read-only)
             Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
             Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+            Route::get('suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
+            Route::post('suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
+            Route::get('suppliers/{supplier}', [SupplierController::class, 'show'])->name('suppliers.show');
         });
 
     // Guest Routes
@@ -89,3 +97,4 @@ Route::middleware(['auth'])->group(function () {
             Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
         });
 });
+

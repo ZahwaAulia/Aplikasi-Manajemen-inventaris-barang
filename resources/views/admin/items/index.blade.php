@@ -101,17 +101,17 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.items.show', $item) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i>
+                                            <a href="{{ route('admin.items.show', $item) }}" class="btn btn-sm btn-info" title="Lihat Detail">
+                                                <i class="fas fa-eye"></i> Lihat
                                             </a>
-                                            <a href="{{ route('admin.items.edit', $item) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
+                                            <a href="{{ route('admin.items.edit', $item) }}" class="btn btn-sm btn-warning" title="Edit Barang">
+                                                <i class="fas fa-edit"></i> Edit
                                             </a>
                                             <form action="{{ route('admin.items.destroy', $item) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus barang ini?')">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus barang ini?')" title="Hapus Barang">
+                                                    <i class="fas fa-trash"></i> Hapus
                                                 </button>
                                             </form>
                                         </td>

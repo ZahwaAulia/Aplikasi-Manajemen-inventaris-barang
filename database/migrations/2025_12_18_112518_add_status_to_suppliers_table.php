@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('items', function (Blueprint $table) {
-            $table->string('status');
+        Schema::table('suppliers', function (Blueprint $table) {
+            $table->enum('status', ['pending', 'approved'])->default('pending');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('items', function (Blueprint $table) {
+        Schema::table('suppliers', function (Blueprint $table) {
             //
         });
     }

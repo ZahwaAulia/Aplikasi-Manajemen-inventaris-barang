@@ -41,7 +41,6 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Kontak Person</th>
                                     <th>Email</th>
                                     <th>Telepon</th>
                                     <th>Alamat</th>
@@ -52,22 +51,38 @@
                                 @forelse($suppliers as $supplier)
                                     <tr>
                                         <td>{{ $supplier->name }}</td>
-                                        <td>{{ $supplier->contact_person ?? '-' }}</td>
                                         <td>{{ $supplier->contact_email ?? '-' }}</td>
-                                        <td>{{ $supplier->phone ?? '-' }}</td>
+                                        <td>{{ $supplier->contact_phone ?? '-' }}</td>
                                         <td>{{ $supplier->address ?? '-' }}</td>
                                         <td>
-                                            <a href="{{ route('admin.suppliers.show', $supplier) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i>
+                                            @if($supplier->status === 'approved')
+                                                <span class="badge bg-success">Disetujui</span>
+                                            @elseif($supplier->status === 'pending')
+                                                <span class="badge bg-warning">Menunggu</span>
+                                            @else
+                                                <span class="badge bg-secondary">{{ $supplier->status }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.suppliers.show', $supplier) }}" class="btn btn-sm btn-info" title="Lihat Detail">
+                                                <i class="fas fa-eye"></i> Lihat
                                             </a>
-                                            <a href="{{ route('admin.suppliers.edit', $supplier) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
+                                            <a href="{{ route('admin.suppliers.edit', $supplier) }}" class="btn btn-sm btn-warning" title="Edit Supplier">
+                                                <i class="fas fa-edit"></i> Edit
                                             </a>
+                                            @if($supplier->status === 'pending')
+                                                <form action="{{ route('admin.suppliers.approve', $supplier) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Setujui Supplier">
+                                                        <i class="fas fa-check"></i> Setujui
+                                                    </button>
+                                                </form>
+                                            @endif
                                             <form action="{{ route('admin.suppliers.destroy', $supplier) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus supplier ini?')">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus supplier ini?')" title="Hapus Supplier">
+                                                    <i class="fas fa-trash"></i> Hapus
                                                 </button>
                                             </form>
                                         </td>

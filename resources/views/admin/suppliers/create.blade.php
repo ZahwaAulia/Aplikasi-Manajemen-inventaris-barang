@@ -21,20 +21,11 @@
                     <form method="POST" action="{{ route('admin.suppliers.store') }}">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Nama Supplier</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                                     @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="contact_person" class="form-label">Contact Person</label>
-                                    <input type="text" class="form-control @error('contact_person') is-invalid @enderror" id="contact_person" name="contact_person" value="{{ old('contact_person') }}">
-                                    @error('contact_person')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

@@ -43,7 +43,7 @@ $recentItems = $conn->query("SELECT i.*, c.name as category_name FROM items i LE
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link active" href="index.php">Dashboard</a>
                     </li>
@@ -55,6 +55,16 @@ $recentItems = $conn->query("SELECT i.*, c.name as category_name FROM items i LE
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="suppliers.php">Supplier</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i><?php echo htmlspecialchars($_SESSION['user_name']); ?> (<?php echo ucfirst($_SESSION['user_role']); ?>)
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

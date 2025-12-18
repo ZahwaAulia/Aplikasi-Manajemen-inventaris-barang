@@ -7,6 +7,190 @@
 
     {{-- CSS --}}
     <link href="{{ asset('assetadmin/css/argon-dashboard.css') }}" rel="stylesheet" />
+    <style>
+        :root {
+            --bs-primary: #667eea;
+            --bs-secondary: #f093fb;
+            --bs-success: #4ecdc4;
+            --bs-info: #45b7d1;
+            --bs-warning: #f9ca24;
+            --bs-danger: #f0932b;
+            --bs-light: #f8f9fa;
+            --bs-dark: #2d3748;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(87deg, #667eea 0, #764ba2 100%) !important;
+        }
+        .bg-gradient-success {
+            background: linear-gradient(87deg, #4ecdc4 0, #44a08d 100%) !important;
+        }
+        .bg-gradient-info {
+            background: linear-gradient(87deg, #45b7d1 0, #96c93d 100%) !important;
+        }
+        .bg-gradient-warning {
+            background: linear-gradient(87deg, #f9ca24 0, #f093fb 100%) !important;
+        }
+        .bg-gradient-danger {
+            background: linear-gradient(87deg, #f0932b 0, #f5576c 100%) !important;
+        }
+        .navbar-vertical .navbar-nav > .nav-item > .nav-link.active {
+            background: linear-gradient(87deg, #667eea 0, #764ba2 100%) !important;
+        }
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background: linear-gradient(87deg, #667eea 0, #764ba2 100%) !important;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(87deg, #5a67d8 0, #6b46c1 100%) !important;
+        }
+        .sidenav {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        .sidenav .navbar-brand {
+            color: white !important;
+        }
+        .sidenav .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+        .sidenav .navbar-nav .nav-link:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        .sidenav .navbar-nav .nav-link.active {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+        .sidenav hr.horizontal {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+        .sidenav .navbar-nav .nav-link.active {
+            border-radius: 0.5rem;
+            margin: 0.25rem 0.5rem;
+        }
+        .main-content {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        }
+        .navbar-main {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+        }
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: #6b7280;
+        }
+        .form-control:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+        }
+        .table {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .table thead th {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+            color: white;
+            border: none;
+        }
+        .badge {
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+        .alert {
+            border-radius: 0.5rem;
+            border: none;
+        }
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%) !important;
+            color: #065f46;
+        }
+        .alert-danger {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+            color: #991b1b;
+        }
+        .pagination .page-link {
+            color: #4f46e5;
+            border-color: #e5e7eb;
+            border-radius: 0.375rem !important;
+            margin: 0 0.125rem;
+            transition: all 0.2s ease;
+        }
+        .pagination .page-link:hover {
+            color: #3730a3;
+            background: #f3f4f6;
+            border-color: #d1d5db;
+        }
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+            border-color: #4f46e5;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            border-radius: 0.5rem;
+        }
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+        }
+        .avatar {
+            border-radius: 0.5rem;
+            border: 2px solid white;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .bg-gray-100 {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%) !important;
+        }
+        .text-primary {
+            color: #4f46e5 !important;
+        }
+        .text-secondary {
+            color: #6b7280 !important;
+        }
+        .text-success {
+            color: #10b981 !important;
+        }
+        .text-info {
+            color: #06b6d4 !important;
+        }
+        .text-warning {
+            color: #f59e0b !important;
+        }
+        .text-danger {
+            color: #ef4444 !important;
+        }
+        .shadow {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+        }
+        .shadow-lg {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        .border-radius-xl {
+            border-radius: 0.75rem !important;
+        }
+        .border-radius-lg {
+            border-radius: 0.5rem !important;
+        }
+        .border-radius-md {
+            border-radius: 0.375rem !important;
+        }
+        .border-radius-sm {
+            border-radius: 0.25rem !important;
+        }
+        .border-radius-xs {
+            border-radius: 0.125rem !important;
+        }
+        .opacity-5 {
+            opacity: 0.5 !important;
+        }
+        .opacity-6 {
+            opacity: 0.6 !important;
+    </style>
 </head>
 <body class="g-sidenav-show bg-gray-100">
 
@@ -15,6 +199,8 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href="{{ route('admin.dashboard') }}" target="_blank">
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+        }
                 <img src="{{ asset('assetadmin/img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
                 <span class="ms-1 font-weight-bold">Inventory App</span>
             </a>
