@@ -20,7 +20,7 @@ class CategoryController extends Controller
                   ->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
-        $categories = $query->paginate(10);
+        $categories = $query->with(['items.supplier'])->paginate(10);
 
         return view('admin.categories.index', compact('categories'));
     }

@@ -43,6 +43,7 @@
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
                                     <th>Jumlah Barang</th>
+                                    <th>Supplier</th>
                                     <th>Dibuat</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -53,6 +54,16 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description ?? '-' }}</td>
                                         <td>{{ $category->items_count ?? $category->items()->count() }}</td>
+                                        <td>
+                                            @php
+                                                $suppliers = $category->items->pluck('supplier')->filter()->unique('id');
+                                            @endphp
+                                            @forelse($suppliers as $supplier)
+                                                <span class="badge bg-primary me-1">{{ $supplier->name }}</span>
+                                            @empty
+                                                -
+                                            @endforelse
+                                        </td>
                                         <td>{{ $category->created_at->format('d/m/Y') }}</td>
                                         <td>
                                             <a href="{{ route('admin.categories.show', $category) }}" class="btn btn-sm btn-info" title="Lihat Detail">
@@ -72,7 +83,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada data kategori.</td>
+                                        <td colspan="6" class="text-center">Tidak ada data kategori.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -52,7 +52,7 @@ class ItemController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::where('status', 'approved')->get();
         $view = auth()->user()->isStaff() ? 'staff.items.create' : 'admin.items.create';
         return view($view, compact('categories', 'suppliers'));
     }
@@ -74,7 +74,7 @@ class ItemController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_expiry' => 'nullable|date|after:purchase_date',
             'status' => 'required|in:tersedia,dipinjam,dikeluarkan',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ]);
 
         $data = $request->all();
@@ -105,7 +105,7 @@ class ItemController extends Controller
     public function edit(Item $item)
     {
         $categories = Category::all();
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::where('status', 'approved')->get();
         $view = auth()->user()->isStaff() ? 'staff.items.edit' : 'admin.items.edit';
         return view($view, compact('item', 'categories', 'suppliers'));
     }

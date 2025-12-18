@@ -77,6 +77,11 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
+        // Staff cannot update suppliers
+        if (auth()->user()->role === 'staff') {
+            return redirect()->route('staff.suppliers.index')->with('error', 'Anda tidak memiliki izin untuk mengupdate supplier.');
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'contact_email' => 'nullable|email|max:255',
@@ -94,8 +99,32 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
+        // Staff cannot delete suppliers
+        if (auth()->user()->role === 'staff') {
+            return redirect()->route('staff.suppliers.index')->with('error', 'Anda tidak memiliki izin untuk menghapus supplier.');
+        }
+
         $supplier->delete();
 
         return redirect()->route('admin.suppliers.index')->with('success', 'Supplier berhasil dihapus.');
+    }
+
+    /**
+     * Approve a pending supplier.
+     */
+    public function approve(Supplier $supplier)
+    {
+        // Only admin can approve suppliers
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menyetujui supplier.');
+        }
+
+        if ($supplier->status !== 'pending') {
+            return redirect()->back()->with('error', 'Supplier ini sudah disetujui atau tidak valid.');
+        }
+
+        $supplier->update(['status' => 'approved']);
+
+        return redirect()->back()->with('success', 'Supplier berhasil disetujui.');
     }
 }

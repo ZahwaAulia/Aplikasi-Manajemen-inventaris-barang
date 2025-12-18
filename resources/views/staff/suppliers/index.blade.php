@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -47,6 +47,15 @@
                                         <td>{{ $supplier->contact_email ?? 'N/A' }}</td>
                                         <td>{{ $supplier->contact_phone ?? 'N/A' }}</td>
                                         <td>
+                                            @if($supplier->status == 'approved')
+                                                <span class="badge badge-success">Disetujui</span>
+                                            @elseif($supplier->status == 'pending')
+                                                <span class="badge badge-warning">Pending</span>
+                                            @elseif($supplier->status == 'rejected')
+                                                <span class="badge badge-danger">Ditolak</span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a href="{{ route('staff.suppliers.show', $supplier) }}" class="btn btn-sm btn-info">
                                                 <i class="fas fa-eye"></i>
                                             </a>
@@ -54,7 +63,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">Tidak ada data supplier.</td>
+                                        <td colspan="5" class="text-center">Tidak ada data supplier.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
