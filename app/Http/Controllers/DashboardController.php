@@ -2,66 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Supplier;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-       public function index() {
-    return view('admin.dashboard');
+    // ================= ADMIN DASHBOARD =================
+    public function index()
+    {
+        $totalItems      = Item::count();
+        $totalCategories = Category::count();
+        $totalSuppliers  = Supplier::count();
+
+        $availableItems = Item::where('status', 'tersedia')->count();
+        $borrowedItems  = Item::where('status', 'dipinjam')->count();
+        $damagedItems = Item::where('status', 'dikeluarkan')->count();
+
+
+        return view('admin.dashboard', compact(
+            'totalItems',
+            'totalCategories',
+            'totalSuppliers',
+            'availableItems',
+            'borrowedItems',
+            'damagedItems'
+        ));
+    }
+
+    // ================= STAFF DASHBOARD =================
+    public function staff()
+    {
+        $totalItems = Item::count();
+
+        $availableItems = Item::where('status', 'tersedia')->count();
+        $borrowedItems  = Item::where('status', 'dipinjam')->count();
+        $damagedItems = Item::where('status', 'dikeluarkan')->count();
+
+
+        return view('staff.dashboard', compact(
+            'totalItems',
+            'availableItems',
+            'borrowedItems',
+            'damagedItems'
+        ));
+    }
+
+    // ================= GUEST DASHBOARD =================
+    public function guest()
+    {
+        $categories = Category::withCount('items')->get();
+
+        $availableItems = Item::where('status', 'tersedia')
+            ->with(['category', 'supplier'])
+            ->paginate(12);
+
+        return view('guest.dashboard', compact(
+            'categories',
+            'availableItems'
+        ));
+    }
 }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-}
+dvfbvgfbgf
