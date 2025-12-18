@@ -18,5 +18,3 @@ class Supplier extends Model
         return $this->hasMany(Item::class);
     }
 }
-xtg u ufvgcr
-vgcdn cudfvf
