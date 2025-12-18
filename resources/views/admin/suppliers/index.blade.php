@@ -53,7 +53,7 @@
                                     <tr>
                                         <td>{{ $supplier->name }}</td>
                                         <td>{{ $supplier->contact_person ?? '-' }}</td>
-                                        <td>{{ $supplier->email ?? '-' }}</td>
+                                        <td>{{ $supplier->contact_email ?? '-' }}</td>
                                         <td>{{ $supplier->phone ?? '-' }}</td>
                                         <td>{{ $supplier->address ?? '-' }}</td>
                                         <td>

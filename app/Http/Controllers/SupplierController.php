@@ -18,7 +18,7 @@ class SupplierController extends Controller
         if ($request->has('search') && !empty($request->search)) {
             $query->where('name', 'like', '%' . $request->search . '%')
                   ->orWhere('contact_person', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%');
+                  ->orWhere('contact_email', 'like', '%' . $request->search . '%');
         }
 
         $suppliers = $query->paginate(10);
@@ -42,8 +42,8 @@ class SupplierController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'contact_person' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
+            'contact_email' => 'nullable|email|max:255',
+            'contact_phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
 
@@ -76,8 +76,8 @@ class SupplierController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'contact_person' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
+            'contact_email' => 'nullable|email|max:255',
+            'contact_phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
 
