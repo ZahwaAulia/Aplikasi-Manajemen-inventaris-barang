@@ -14,6 +14,11 @@ class SupplierController extends Controller
     {
         $query = Supplier::query();
 
+        // Staff can only see approved suppliers
+        if (auth()->user()->role === 'staff') {
+            $query->where('status', 'approved');
+        }
+
         // Search functionality
         if ($request->has('search') && !empty($request->search)) {
             $query->where('name', 'like', '%' . $request->search . '%')

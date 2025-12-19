@@ -153,7 +153,7 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
+                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
                                     <i class="ni ni-delivery-fast text-white opacity-10"></i>
@@ -165,6 +165,22 @@
                             </div>
                             <div class="d-flex">
                                 <a href="{{ route('admin.suppliers.index') }}" class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+                                    <i class="ni ni-bold-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
+                            <div class="d-flex align-items-center">
+                                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                                    <i class="ni ni-single-02 text-white opacity-10"></i>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <h6 class="mb-1 text-dark text-sm">Kelola User</h6>
+                                    <span class="text-xs">Kelola pengguna dan konfirmasi staff</span>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <a href="{{ route('admin.users.index') }}" class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
                                     <i class="ni ni-bold-right" aria-hidden="true"></i>
                                 </a>
                             </div>

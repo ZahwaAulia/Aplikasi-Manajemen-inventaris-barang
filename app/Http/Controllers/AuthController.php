@@ -32,6 +32,14 @@ class AuthController extends Controller
                 $user->update(['role' => $request->role]);
             }
 
+            // Check if staff is confirmed
+            if ($request->role === 'staff' && !$user->isConfirmed()) {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Your account is pending admin approval.'
+                ]);
+            }
+
             if ($request->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             }
@@ -59,17 +67,24 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,staff,guest'
+            'role' => 'required|in:staff,guest'
         ]);
+
+        $status = $request->role === 'staff' ? 'pending' : 'confirmed';
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'status' => $status,
         ]);
 
-        return redirect()->route('login')->with('status', 'Registration successful! Please login.');
+        $message = $request->role === 'staff'
+            ? 'Registration successful! Your account is pending admin approval. Please wait for confirmation.'
+            : 'Registration successful! Please login.';
+
+        return redirect()->route('login')->with('status', $message);
     }
 
     public function logout(Request $request)

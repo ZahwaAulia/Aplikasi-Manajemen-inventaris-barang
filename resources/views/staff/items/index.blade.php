@@ -5,11 +5,17 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>Kelola Barang</h4>
-                    <a href="{{ route('staff.items.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus me-2"></i>Tambah Barang
-                    </a>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Kelola Barang</h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <a href="{{ route('staff.items.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Tambah Barang
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- Search and Filter Form -->

@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
+            'status' => 'confirmed',
         ]);
 
         // Create staff user
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
             'email' => 'staff@example.com',
             'password' => Hash::make('password'),
             'role' => 'staff',
+            'status' => 'confirmed',
         ]);
 
         // Create guest user
@@ -35,6 +37,7 @@ class UserSeeder extends Seeder
             'email' => 'guest@example.com',
             'password' => Hash::make('password'),
             'role' => 'guest',
+            'status' => 'confirmed',
         ]);
     }
 }

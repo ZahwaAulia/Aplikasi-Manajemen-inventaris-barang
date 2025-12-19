@@ -17,7 +17,7 @@
                         <h3>Register</h3>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register.process') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>

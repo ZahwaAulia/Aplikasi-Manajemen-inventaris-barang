@@ -77,6 +77,12 @@
                                                         <i class="fas fa-check"></i> Setujui
                                                     </button>
                                                 </form>
+                                                <form action="{{ route('admin.suppliers.reject', $supplier) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Tolak Supplier" onclick="return confirm('Apakah Anda yakin ingin menolak supplier ini?')">
+                                                        <i class="fas fa-times"></i> Tolak
+                                                    </button>
+                                                </form>
                                             @endif
                                             <form action="{{ route('admin.suppliers.destroy', $supplier) }}" method="POST" class="d-inline">
                                                 @csrf
@@ -89,7 +95,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data supplier.</td>
+                                        <td colspan="7" class="text-center">Tidak ada data supplier.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
