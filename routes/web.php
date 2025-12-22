@@ -7,10 +7,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\GuestItemController;
+
+// Route::get('/', function () {
+//     return redirect()->route('login');
 
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return view('welcome');
+})->name('welcome');
 
 // Auth Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -45,7 +49,7 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     Route::get('/dashboard', [DashboardController::class, 'staff'])->name('dashboard');
 
     // Items (staff can create and edit)
-    Route::resource('items', ItemController::class)->except(['destroy']);
+    Route::resource('items', ItemController::class);
 
     // Categories (read-only)
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -60,10 +64,20 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
 Route::middleware(['auth', 'role:guest'])->prefix('guest')->name('guest.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'guest'])->name('dashboard');
 
-    // Items (read-only for guests)
-    Route::get('/items', [ItemController::class, 'index'])->name('items.index');
-    Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+//     // Items (read-only for guests)
+//     // Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+//     // Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+
+//     // Categories (read-only)
+//     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+ Route::get('/items', [GuestItemController::class, 'index'])
+        ->name('items.index');
+
+    Route::get('/items/{item}', [GuestItemController::class, 'show'])
+        ->name('items.show');
 
     // Categories (read-only)
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('categories.index');
 });

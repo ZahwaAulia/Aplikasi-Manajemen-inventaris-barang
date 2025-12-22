@@ -137,50 +137,92 @@
         Silakan login untuk mengelola inventory
     </p>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <form method="POST" action="<?php echo e(route('login')); ?>">
+        <?php echo csrf_field(); ?>
 
         <!-- Email -->
         <div class="mb-3">
             <label class="form-label">Email</label>
             <input type="email"
-                class="form-control @error('email') is-invalid @enderror"
+                class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
                 name="email"
-                value="{{ old('email') }}"
+                value="<?php echo e(old('email')); ?>"
                 placeholder="contoh@email.com"
                 required>
-            @error('email')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><?php echo e($message); ?></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
         </div>
 
         <!-- Password -->
         <div class="mb-3">
             <label class="form-label">Password</label>
             <input type="password"
-                class="form-control @error('password') is-invalid @enderror"
+                class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
                 name="password"
                 placeholder="********"
                 required>
-            @error('password')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+            <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><?php echo e($message); ?></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
         </div>
 
         <!-- Role -->
         <div class="mb-3">
             <label class="form-label">Pilih Role</label>
             <select name="role"
-                class="form-select @error('role') is-invalid @enderror"
+                class="form-select <?php $__errorArgs = ['role'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
                 required>
                 <option value="">-- Pilih Role --</option>
-                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
-                <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Guest</option>
+                <option value="admin" <?php echo e(old('role') == 'admin' ? 'selected' : ''); ?>>Admin</option>
+                <option value="staff" <?php echo e(old('role') == 'staff' ? 'selected' : ''); ?>>Staff</option>
+                <option value="guest" <?php echo e(old('role') == 'guest' ? 'selected' : ''); ?>>Guest</option>
             </select>
-            @error('role')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+            <?php $__errorArgs = ['role'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><?php echo e($message); ?></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
         </div>
 
         <!-- Remember -->
@@ -198,23 +240,24 @@
     <!-- Register -->
     <div class="text-center mt-4">
         <small class="text-muted">Belum punya akun?</small><br>
-        <a href="{{ route('register') }}" class="text-link text-primary">
+        <a href="<?php echo e(route('register')); ?>" class="text-link text-primary">
             Daftar sekarang
         </a>
     </div>
 
     <!-- Errors -->
-    @if ($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger mt-3">
             <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
+    <?php endif; ?>
 
 </div>
 
 </body>
 </html>
+<?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/auth/login.blade.php ENDPATH**/ ?>

@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
@@ -15,12 +13,12 @@
 
                         <!-- BARANG TERSEDIA -->
                         <div class="col-md-4">
-                            <a href="{{ route('guest.items.index', ['status' => 'tersedia']) }}"
+                            <a href="<?php echo e(route('guest.items.index', ['status' => 'tersedia'])); ?>"
                                class="text-decoration-none">
                                 <div class="card bg-primary text-white h-100 dashboard-card">
                                     <div class="card-body text-center">
                                         <i class="fas fa-boxes fa-3x mb-3"></i>
-                                        <h5>{{ $availableItems->count() }} Barang Tersedia</h5>
+                                        <h5><?php echo e($availableItems->count()); ?> Barang Tersedia</h5>
                                         <p>Jelajahi berbagai barang yang siap digunakan.</p>
                                     </div>
                                 </div>
@@ -29,12 +27,12 @@
 
                         <!-- KATEGORI -->
                         <div class="col-md-4">
-                            <a href="{{ route('guest.categories.index') }}"
+                            <a href="<?php echo e(route('guest.categories.index')); ?>"
                                class="text-decoration-none">
                                 <div class="card bg-success text-white h-100 dashboard-card">
                                     <div class="card-body text-center">
                                         <i class="fas fa-tags fa-3x mb-3"></i>
-                                        <h5>{{ $categories->count() }} Kategori</h5>
+                                        <h5><?php echo e($categories->count()); ?> Kategori</h5>
                                         <p>Temukan barang berdasarkan kategori.</p>
                                     </div>
                                 </div>
@@ -43,7 +41,7 @@
 
                         <!-- PENCARIAN MUDAH -->
                         <div class="col-md-4">
-                            <a href="{{ route('guest.items.index', ['focus' => 'search']) }}"
+                            <a href="<?php echo e(route('guest.items.index', ['focus' => 'search'])); ?>"
                                class="text-decoration-none">
                                 <div class="card bg-info text-white h-100 dashboard-card">
                                     <div class="card-body text-center">
@@ -70,24 +68,24 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        @forelse($categories as $category)
+                        <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <div class="col-md-3 mb-3">
-                                <a href="{{ route('guest.items.index', ['category_id' => $category->id]) }}"
+                                <a href="<?php echo e(route('guest.items.index', ['category_id' => $category->id])); ?>"
                                    class="text-decoration-none">
                                     <div class="card h-100 dashboard-card">
                                         <div class="card-body text-center">
                                             <i class="fas fa-tag fa-2x text-primary mb-2"></i>
-                                            <h6>{{ $category->name }}</h6>
-                                            <p class="text-muted">{{ $category->items_count }} barang</p>
+                                            <h6><?php echo e($category->name); ?></h6>
+                                            <p class="text-muted"><?php echo e($category->items_count); ?> barang</p>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <div class="col-12">
                                 <p class="text-center text-muted">Tidak ada kategori tersedia.</p>
                             </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -103,53 +101,56 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        @forelse($availableItems as $item)
+                        <?php $__empty_1 = true; $__currentLoopData = $availableItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <div class="col-md-4 mb-4">
-                                <a href="{{ route('guest.items.show', $item) }}"
+                                <a href="<?php echo e(route('guest.items.show', $item)); ?>"
                                    class="text-decoration-none">
                                     <div class="card h-100 dashboard-card">
                                         <div class="card-body">
-                                            @if($item->image)
-                                                <img src="{{ asset('storage/' . $item->image) }}"
+                                            <?php if($item->image): ?>
+                                                <img src="<?php echo e(asset('storage/' . $item->image)); ?>"
                                                      class="img-fluid mb-3"
                                                      style="height:200px; object-fit:cover;">
-                                            @else
+                                            <?php else: ?>
                                                 <div class="bg-light text-center mb-3"
                                                      style="height:200px; display:flex; align-items:center; justify-content:center;">
                                                     <i class="fas fa-image fa-3x text-muted"></i>
                                                 </div>
-                                            @endif
+                                            <?php endif; ?>
 
-                                            <h6>{{ $item->name }}</h6>
+                                            <h6><?php echo e($item->name); ?></h6>
                                             <p class="text-muted">
-                                                {{ Str::limit($item->description, 100) }}
+                                                <?php echo e(Str::limit($item->description, 100)); ?>
+
                                             </p>
 
                                             <div class="d-flex justify-content-between">
                                                 <span class="badge bg-success">Tersedia</span>
                                                 <span class="fw-bold text-primary">
-                                                    {{ $item->stock_quantity }} unit
+                                                    <?php echo e($item->stock_quantity); ?> unit
                                                 </span>
                                             </div>
 
                                             <small class="text-muted d-block mt-2">
-                                                Kategori: {{ $item->category->name ?? 'N/A' }}
+                                                Kategori: <?php echo e($item->category->name ?? 'N/A'); ?>
+
                                             </small>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <div class="col-12">
                                 <p class="text-center text-muted">
                                     Tidak ada barang tersedia saat ini.
                                 </p>
                             </div>
-                        @endforelse
+                        <?php endif; ?>
                     </div>
 
                     <div class="d-flex justify-content-center mt-4">
-                        {{ $availableItems->links() }}
+                        <?php echo e($availableItems->links()); ?>
+
                     </div>
                 </div>
             </div>
@@ -168,4 +169,6 @@
     box-shadow: 0 8px 20px rgba(0,0,0,.15);
 }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/guest/dashboard.blade.php ENDPATH**/ ?>

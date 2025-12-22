@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Inventory App</title>
 
-    {{-- CSS --}}
-    <link href="{{ asset('assetadmin/css/argon-dashboard.css') }}" rel="stylesheet" />
+    
+    <link href="<?php echo e(asset('assetadmin/css/argon-dashboard.css')); ?>" rel="stylesheet" />
     <style>
         :root {
             --bs-primary: #667eea;
@@ -244,13 +244,13 @@
 
 <body class="g-sidenav-show bg-gray-100">
 
-    {{-- Sidebar --}}
+    
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
         id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0" href="{{ route('admin.dashboard') }}" target="_blank">
+            <a class="navbar-brand m-0" href="<?php echo e(route('admin.dashboard')); ?>" target="_blank">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="navbar-brand-img">
                     <rect x="5" y="8" width="30" height="24" rx="3" fill="#ffffff" stroke="#ffffff"
@@ -271,15 +271,15 @@
         <hr class="horizontal dark mt-0">
         <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
             <ul class="navbar-nav">
-                @include('layouts.sidebar')
+                <?php echo $__env->make('layouts.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
             </ul>
         </div>
     </aside>
 
-    {{-- Main Content --}}
+    
     <main class="main-content d-flex flex-column min-vh-100 border-radius-lg">
 
-        {{-- Navbar --}}
+        
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
             navbar-scroll="true">
             <div class="container-fluid py-1 px-3">
@@ -331,7 +331,7 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="{{ asset('assetadmin/img/team-2.jpg') }}"
+                                                <img src="<?php echo e(asset('assetadmin/img/team-2.jpg')); ?>"
                                                     class="avatar avatar-sm me-3">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
@@ -350,7 +350,7 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="{{ asset('assetadmin/img/small-logos/logo-spotify.svg') }}"
+                                                <img src="<?php echo e(asset('assetadmin/img/small-logos/logo-spotify.svg')); ?>"
                                                     class="avatar avatar-sm bg-gradient-dark me-3">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
@@ -390,9 +390,9 @@
             </div>
         </nav>
 
-        {{-- Main Panel --}}
+        
         <div class="container-fluid py-4 flex-grow-1">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
 
         <footer class="text-center py-3 mt-auto"
@@ -404,15 +404,16 @@
         margin: 0 1.5rem 1rem;
         box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);
     ">
-            © {{ date('Y') }} Inventory System • Developed by
+            © <?php echo e(date('Y')); ?> Inventory System • Developed by
             <strong>Zahwa & Raja</strong>
         </footer>
 
 
     </main>
 
-    {{-- JS --}}
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+<?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/layouts/app.blade.php ENDPATH**/ ?>

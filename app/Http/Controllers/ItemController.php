@@ -18,10 +18,12 @@ class ItemController extends Controller
         $query = Item::with(['category', 'supplier']);
 
         // Search functionality
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%')
-                  ->orWhere('location', 'like', '%' . $request->search . '%');
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('description', 'like', '%' . $request->search . '%')
+                    ->orWhere('location', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Filter by category
@@ -78,7 +80,7 @@ class ItemController extends Controller
         ]);
 
         $data = $request->all();
-
+        $data['status'] = 'tersedia';
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('items', 'public');
         }

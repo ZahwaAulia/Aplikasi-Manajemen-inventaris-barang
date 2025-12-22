@@ -139,20 +139,21 @@
     </p>
 
     <div class="d-grid gap-3 mt-4">
-        <a href="{{ route('login') }}" class="btn btn-custom btn-login">
+        <a href="<?php echo e(route('login')); ?>" class="btn btn-custom btn-login">
             <i class="fas fa-sign-in-alt me-2"></i> Login
         </a>
 
-        <a href="{{ route('register') }}" class="btn btn-custom btn-register">
+        <a href="<?php echo e(route('register')); ?>" class="btn btn-custom btn-register">
             <i class="fas fa-user-plus me-2"></i> Register
         </a>
     </div>
 
     <div class="footer-text">
-        © {{ date('Y') }} Inventory System • All rights reserved
+        © <?php echo e(date('Y')); ?> Inventory System • All rights reserved
     </div>
 
 </div>
 
 </body>
 </html>
+<?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/welcome.blade.php ENDPATH**/ ?>

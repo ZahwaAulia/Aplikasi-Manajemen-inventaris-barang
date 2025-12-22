@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid py-4">
     <!-- Welcome Header -->
     <div class="row mb-4">
@@ -9,7 +7,7 @@
                 <div class="card-body p-4">
                     <div class="row align-items-center">
                         <div class="col-lg-8">
-                            <h2 class="text-white mb-2">Selamat Datang, {{ auth()->user()->name }}!</h2>
+                            <h2 class="text-white mb-2">Selamat Datang, <?php echo e(auth()->user()->name); ?>!</h2>
                             <p class="text-white-50 mb-0">Dashboard Staff - Sistem Manajemen Inventaris Barang</p>
                         </div>
                         <div class="col-lg-4 text-end">
@@ -31,7 +29,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Barang
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalItems }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo e($totalItems); ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-boxes fa-2x text-primary"></i>
@@ -49,7 +47,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total Supplier
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers ?? 0 }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo e($totalSuppliers ?? 0); ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-truck fa-2x text-success"></i>
@@ -67,7 +65,7 @@
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                 Barang Aktif
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalItems }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo e($totalItems); ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-check-circle fa-2x text-info"></i>
@@ -85,7 +83,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Supplier Aktif
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers ?? 0 }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo e($totalSuppliers ?? 0); ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-star fa-2x text-warning"></i>
@@ -106,7 +104,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <a href="{{ route('staff.items.index') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center">
+                            <a href="<?php echo e(route('staff.items.index')); ?>" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center">
                                 <i class="fas fa-boxes fa-2x me-3"></i>
                                 <div class="text-start">
                                     <div class="fw-bold">Kelola Barang</div>
@@ -115,7 +113,7 @@
                             </a>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <a href="{{ route('staff.suppliers.index') }}" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center">
+                            <a href="<?php echo e(route('staff.suppliers.index')); ?>" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center">
                                 <i class="fas fa-truck fa-2x me-3"></i>
                                 <div class="text-start">
                                     <div class="fw-bold">Kelola Supplier</div>
@@ -138,7 +136,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Barang Terbaru</h6>
                 </div>
                 <div class="card-body">
-                    @forelse($recentItems ?? [] as $item)
+                    <?php $__empty_1 = true; $__currentLoopData = $recentItems ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
                             <div class="me-3">
                                 <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
@@ -146,21 +144,22 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="fw-bold text-gray-800">{{ $item->name }}</div>
-                                <div class="text-xs text-muted">{{ $item->category->name ?? 'N/A' }} • {{ $item->supplier->name ?? 'N/A' }}</div>
+                                <div class="fw-bold text-gray-800"><?php echo e($item->name); ?></div>
+                                <div class="text-xs text-muted"><?php echo e($item->category->name ?? 'N/A'); ?> • <?php echo e($item->supplier->name ?? 'N/A'); ?></div>
                             </div>
                             <div class="text-end">
-                                <span class="badge {{ $item->status === 'tersedia' ? 'bg-success' : ($item->status === 'dipinjam' ? 'bg-warning' : 'bg-danger') }}">
-                                    {{ $item->status === 'tersedia' ? 'Tersedia' : ($item->status === 'dipinjam' ? 'Dipinjam' : 'Dikeluarkan') }}
+                                <span class="badge <?php echo e($item->status === 'tersedia' ? 'bg-success' : ($item->status === 'dipinjam' ? 'bg-warning' : 'bg-danger')); ?>">
+                                    <?php echo e($item->status === 'tersedia' ? 'Tersedia' : ($item->status === 'dipinjam' ? 'Dipinjam' : 'Dikeluarkan')); ?>
+
                                 </span>
                             </div>
                         </div>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="text-center py-4">
                             <i class="fas fa-inbox fa-3x text-gray-300 mb-3"></i>
                             <p class="text-muted">Belum ada barang yang ditambahkan</p>
                         </div>
-                    @endforelse
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -172,7 +171,7 @@
                     <h6 class="m-0 font-weight-bold text-success">Supplier Terbaru</h6>
                 </div>
                 <div class="card-body">
-                    @forelse($recentSuppliers ?? [] as $supplier)
+                    <?php $__empty_1 = true; $__currentLoopData = $recentSuppliers ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $supplier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
                             <div class="me-3">
                                 <div class="bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
@@ -180,21 +179,22 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="fw-bold text-gray-800">{{ $supplier->name }}</div>
-                                <div class="text-xs text-muted">{{ $supplier->contact_email ?? 'N/A' }} • {{ $supplier->contact_phone ?? 'N/A' }}</div>
+                                <div class="fw-bold text-gray-800"><?php echo e($supplier->name); ?></div>
+                                <div class="text-xs text-muted"><?php echo e($supplier->contact_email ?? 'N/A'); ?> • <?php echo e($supplier->contact_phone ?? 'N/A'); ?></div>
                             </div>
                             <div class="text-end">
-                                <span class="badge {{ $supplier->status === 'approved' ? 'bg-success' : 'bg-warning' }}">
-                                    {{ $supplier->status === 'approved' ? 'Disetujui' : 'Pending' }}
+                                <span class="badge <?php echo e($supplier->status === 'approved' ? 'bg-success' : 'bg-warning'); ?>">
+                                    <?php echo e($supplier->status === 'approved' ? 'Disetujui' : 'Pending'); ?>
+
                                 </span>
                             </div>
                         </div>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <div class="text-center py-4">
                             <i class="fas fa-users fa-3x text-gray-300 mb-3"></i>
                             <p class="text-muted">Belum ada supplier yang ditambahkan</p>
                         </div>
-                    @endforelse
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -359,4 +359,6 @@
     color: rgba(255, 255, 255, 0.5) !important;
 }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/staff/dashboard.blade.php ENDPATH**/ ?>

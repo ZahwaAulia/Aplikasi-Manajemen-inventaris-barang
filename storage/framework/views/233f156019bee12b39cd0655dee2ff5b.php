@@ -1,28 +1,28 @@
- @extends('layouts.app')
+ 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Kelola Supplier</h4>
-                    <a href="{{ route('staff.suppliers.create') }}" class="btn btn-primary">
+                    <a href="<?php echo e(route('staff.suppliers.create')); ?>" class="btn btn-primary">
                         <i class="fas fa-plus me-2"></i>Tambah Supplier
                     </a>
                 </div>
                 <div class="card-body">
                     <!-- Search Form -->
-                    <form method="GET" action="{{ route('staff.suppliers.index') }}" class="mb-4">
+                    <form method="GET" action="<?php echo e(route('staff.suppliers.index')); ?>" class="mb-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" name="search" class="form-control" placeholder="Cari nama, contact person, email..." value="{{ request('search') }}">
+                                <input type="text" name="search" class="form-control" placeholder="Cari nama, contact person, email..." value="<?php echo e(request('search')); ?>">
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-secondary me-2">
                                     <i class="fas fa-search"></i> Cari
                                 </button>
-                                <a href="{{ route('staff.suppliers.index') }}" class="btn btn-outline-secondary">
+                                <a href="<?php echo e(route('staff.suppliers.index')); ?>" class="btn btn-outline-secondary">
                                     <i class="fas fa-times"></i> Reset
                                 </a>
                             </div>
@@ -42,39 +42,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($suppliers as $supplier)
+                                <?php $__empty_1 = true; $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $supplier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
-                                        <td>{{ $supplier->name }}</td>
-                                        <td>{{ $supplier->contact_email ?? 'N/A' }}</td>
-                                        <td>{{ $supplier->contact_phone ?? 'N/A' }}</td>
+                                        <td><?php echo e($supplier->name); ?></td>
+                                        <td><?php echo e($supplier->contact_email ?? 'N/A'); ?></td>
+                                        <td><?php echo e($supplier->contact_phone ?? 'N/A'); ?></td>
                                         <td>
-                                            @if($supplier->status == 'approved')
+                                            <?php if($supplier->status == 'approved'): ?>
                                                 <span class="badge badge-success">Disetujui</span>
-                                            @elseif($supplier->status == 'pending')
+                                            <?php elseif($supplier->status == 'pending'): ?>
                                                 <span class="badge badge-warning">Pending</span>
-                                            @elseif($supplier->status == 'rejected')
+                                            <?php elseif($supplier->status == 'rejected'): ?>
                                                 <span class="badge badge-danger">Ditolak</span>
-                                            @endif
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <!-- Staff cannot view individual supplier details -->
                                             <span class="text-muted">Tidak ada aksi</span>
                                         </td>
                                     </tr>
-                                @empty
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <tr>
                                         <td colspan="5" class="text-center">Tidak ada data supplier.</td>
                                     </tr>
-                                @endforelse
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
 
                     <!-- Pagination -->
-                    {{ $suppliers->links() }}
+                    <?php echo e($suppliers->links()); ?>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/staff/suppliers/index.blade.php ENDPATH**/ ?>

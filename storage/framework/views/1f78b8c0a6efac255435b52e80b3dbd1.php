@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
@@ -11,7 +9,7 @@
                                 <h4>Kelola Barang</h4>
                             </div>
                             <div class="col-md-6 text-end">
-                                <a href="{{ route('staff.items.create') }}" class="btn btn-primary">
+                                <a href="<?php echo e(route('staff.items.create')); ?>" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Tambah Barang
                                 </a>
                             </div>
@@ -19,43 +17,44 @@
                     </div>
                     <div class="card-body">
                         <!-- Search and Filter Form -->
-                        <form method="GET" action="{{ route('staff.items.index') }}" class="mb-4">
+                        <form method="GET" action="<?php echo e(route('staff.items.index')); ?>" class="mb-4">
                             <div class="row">
                                 <div class="col-md-3">
                                     <input type="text" name="search" class="form-control"
-                                        placeholder="Cari nama, deskripsi, lokasi..." value="{{ request('search') }}">
+                                        placeholder="Cari nama, deskripsi, lokasi..." value="<?php echo e(request('search')); ?>">
                                 </div>
                                 <div class="col-md-2">
                                     <select name="category_id" class="form-control">
                                         <option value="">Semua Kategori</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}"
-                                                {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                                {{ $category->name }}
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($category->id); ?>"
+                                                <?php echo e(request('category_id') == $category->id ? 'selected' : ''); ?>>
+                                                <?php echo e($category->name); ?>
+
                                             </option>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
                                     <select name="status" class="form-control">
                                         <option value="">Semua Status</option>
-                                        <option value="tersedia" {{ request('status') == 'tersedia' ? 'selected' : '' }}>
+                                        <option value="tersedia" <?php echo e(request('status') == 'tersedia' ? 'selected' : ''); ?>>
                                             Tersedia</option>
-                                        <option value="dipinjam" {{ request('status') == 'dipinjam' ? 'selected' : '' }}>
+                                        <option value="dipinjam" <?php echo e(request('status') == 'dipinjam' ? 'selected' : ''); ?>>
                                             Dipinjam</option>
                                         <option value="dikeluarkan"
-                                            {{ request('status') == 'dikeluarkan' ? 'selected' : '' }}>Dikeluarkan</option>
+                                            <?php echo e(request('status') == 'dikeluarkan' ? 'selected' : ''); ?>>Dikeluarkan</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
                                     <select name="condition" class="form-control">
                                         <option value="">Semua Kondisi</option>
-                                        <option value="baik" {{ request('condition') == 'baik' ? 'selected' : '' }}>Baik
+                                        <option value="baik" <?php echo e(request('condition') == 'baik' ? 'selected' : ''); ?>>Baik
                                         </option>
-                                        <option value="rusak" {{ request('condition') == 'rusak' ? 'selected' : '' }}>
+                                        <option value="rusak" <?php echo e(request('condition') == 'rusak' ? 'selected' : ''); ?>>
                                             Rusak</option>
                                         <option value="perlu_perbaikan"
-                                            {{ request('condition') == 'perlu_perbaikan' ? 'selected' : '' }}>Perlu
+                                            <?php echo e(request('condition') == 'perlu_perbaikan' ? 'selected' : ''); ?>>Perlu
                                             Perbaikan</option>
                                     </select>
                                 </div>
@@ -63,7 +62,7 @@
                                     <button type="submit" class="btn btn-secondary me-2">
                                         <i class="fas fa-search"></i> Cari
                                     </button>
-                                    <a href="{{ route('staff.items.index') }}" class="btn btn-outline-secondary">
+                                    <a href="<?php echo e(route('staff.items.index')); ?>" class="btn btn-outline-secondary">
                                         <i class="fas fa-times"></i> Reset
                                     </a>
                                 </div>
@@ -86,46 +85,48 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($items as $item)
+                                    <?php $__empty_1 = true; $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                         <tr>
                                             <td>
-                                                @if ($item->image)
-                                                    <img src="{{ asset('storage/' . $item->image) }}"
-                                                        alt="{{ $item->name }}" width="50" height="50"
+                                                <?php if($item->image): ?>
+                                                    <img src="<?php echo e(asset('storage/' . $item->image)); ?>"
+                                                        alt="<?php echo e($item->name); ?>" width="50" height="50"
                                                         class="rounded">
-                                                @else
+                                                <?php else: ?>
                                                     <span class="text-muted">No Image</span>
-                                                @endif
+                                                <?php endif; ?>
                                             </td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->category->name ?? 'N/A' }}</td>
-                                            <td>{{ $item->supplier->name ?? 'N/A' }}</td>
-                                            <td>{{ $item->stock_quantity }}</td>
+                                            <td><?php echo e($item->name); ?></td>
+                                            <td><?php echo e($item->category->name ?? 'N/A'); ?></td>
+                                            <td><?php echo e($item->supplier->name ?? 'N/A'); ?></td>
+                                            <td><?php echo e($item->stock_quantity); ?></td>
                                             <td>
                                                 <span
-                                                    class="badge bg-{{ $item->condition == 'baik' ? 'success' : ($item->condition == 'rusak' ? 'danger' : 'warning') }}">
-                                                    {{ ucfirst(str_replace('_', ' ', $item->condition)) }}
+                                                    class="badge bg-<?php echo e($item->condition == 'baik' ? 'success' : ($item->condition == 'rusak' ? 'danger' : 'warning')); ?>">
+                                                    <?php echo e(ucfirst(str_replace('_', ' ', $item->condition))); ?>
+
                                                 </span>
                                             </td>
                                             <td>
                                                 <span
-                                                    class="badge bg-{{ $item->status == 'tersedia' ? 'success' : ($item->status == 'dipinjam' ? 'warning' : 'secondary') }}">
-                                                    {{ ucfirst($item->status) }}
+                                                    class="badge bg-<?php echo e($item->status == 'tersedia' ? 'success' : ($item->status == 'dipinjam' ? 'warning' : 'secondary')); ?>">
+                                                    <?php echo e(ucfirst($item->status)); ?>
+
                                                 </span>
                                             </td>
                                             <td class="d-flex gap-1">
-                                                <a href="{{ route('staff.items.show', $item) }}"
+                                                <a href="<?php echo e(route('staff.items.show', $item)); ?>"
                                                     class="btn btn-sm btn-info">
                                                     <i class="fas fa-eye me-1"></i> Detail
                                                 </a>
-                                                <a href="{{ route('staff.items.edit', $item) }}"
+                                                <a href="<?php echo e(route('staff.items.edit', $item)); ?>"
                                                     class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit me-1"></i> Edit
                                                 </a>
-                                                <form action="{{ route('staff.items.destroy', $item) }}" method="POST"
+                                                <form action="<?php echo e(route('staff.items.destroy', $item)); ?>" method="POST"
                                                     onsubmit="return confirm('Yakin ingin menghapus barang?')">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('DELETE'); ?>
                                                     <button class="btn btn-sm btn-danger">
                                                         <i class="fas fa-trash"></i> Hapus
                                                     </button>
@@ -133,20 +134,23 @@
 
                                             </td>
                                         </tr>
-                                    @empty
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                         <tr>
                                             <td colspan="8" class="text-center">Tidak ada data barang.</td>
                                         </tr>
-                                    @endforelse
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- Pagination -->
-                        {{ $items->links() }}
+                        <?php echo e($items->links()); ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/staff/items/index.blade.php ENDPATH**/ ?>

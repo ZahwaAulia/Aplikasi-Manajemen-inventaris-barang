@@ -1,9 +1,7 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid py-4">
 
-    {{-- Title --}}
+    
     <div class="row mb-4">
         <div class="col-12">
             <h4 class="mb-0 fw-bold">Dashboard</h4>
@@ -11,14 +9,14 @@
         </div>
     </div>
 
-    {{-- Statistik Utama --}}
+    
     <div class="row g-4">
         <div class="col-xl-3 col-sm-6">
             <div class="card h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <p class="text-sm mb-1 text-uppercase fw-bold">Total Barang</p>
-                        <h4 class="mb-0 fw-bolder">{{ $totalItems ?? 0 }}</h4>
+                        <h4 class="mb-0 fw-bolder"><?php echo e($totalItems ?? 0); ?></h4>
                     </div>
                     <div class="icon icon-shape bg-gradient-primary text-white rounded-circle">
                         <i class="ni ni-box-2"></i>
@@ -32,7 +30,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <p class="text-sm mb-1 text-uppercase fw-bold">Kategori</p>
-                        <h4 class="mb-0 fw-bolder">{{ $totalCategories ?? 0 }}</h4>
+                        <h4 class="mb-0 fw-bolder"><?php echo e($totalCategories ?? 0); ?></h4>
                     </div>
                     <div class="icon icon-shape bg-gradient-success text-white rounded-circle">
                         <i class="ni ni-tag"></i>
@@ -46,7 +44,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <p class="text-sm mb-1 text-uppercase fw-bold">Supplier</p>
-                        <h4 class="mb-0 fw-bolder">{{ $totalSuppliers ?? 0 }}</h4>
+                        <h4 class="mb-0 fw-bolder"><?php echo e($totalSuppliers ?? 0); ?></h4>
                     </div>
                     <div class="icon icon-shape bg-gradient-info text-white rounded-circle">
                         <i class="ni ni-delivery-fast"></i>
@@ -60,7 +58,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <p class="text-sm mb-1 text-uppercase fw-bold">Tersedia</p>
-                        <h4 class="mb-0 fw-bolder">{{ $availableItems ?? 0 }}</h4>
+                        <h4 class="mb-0 fw-bolder"><?php echo e($availableItems ?? 0); ?></h4>
                     </div>
                     <div class="icon icon-shape bg-gradient-warning text-white rounded-circle">
                         <i class="ni ni-check-bold"></i>
@@ -70,10 +68,10 @@
         </div>
     </div>
 
-    {{-- Statistik & Navigasi --}}
+    
     <div class="row g-4 mt-2">
 
-        {{-- Statistik Barang --}}
+        
       <div class="col-lg-6">
     <div class="card h-100">
         <div class="card-header pb-0">
@@ -83,7 +81,7 @@
 
         <div class="card-body">
 
-            {{-- BARIS ATAS --}}
+            
             <div class="row text-center mb-3">
                 <div class="col-6">
                     <div class="p-3 border-radius-lg bg-gray-100">
@@ -91,7 +89,8 @@
                             <i class="ni ni-check-bold"></i>
                         </div>
                         <h4 class="font-weight-bolder text-success mb-0">
-                            {{ $availableItems ?? 0 }}
+                            <?php echo e($availableItems ?? 0); ?>
+
                         </h4>
                         <p class="text-sm mb-0">Tersedia</p>
                     </div>
@@ -103,14 +102,15 @@
                             <i class="ni ni-time-alarm"></i>
                         </div>
                         <h4 class="font-weight-bolder text-warning mb-0">
-                            {{ $borrowedItems ?? 0 }}
+                            <?php echo e($borrowedItems ?? 0); ?>
+
                         </h4>
                         <p class="text-sm mb-0">Dipinjam</p>
                     </div>
                 </div>
             </div>
 
-            {{-- BARIS BAWAH --}}
+            
             <div class="row text-center">
                 <div class="col-12">
                     <div class="p-3 border-radius-lg bg-gray-100">
@@ -118,7 +118,8 @@
                             <i class="ni ni-fat-remove"></i>
                         </div>
                         <h4 class="font-weight-bolder text-danger mb-0">
-                            {{ $damagedItems ?? 0 }}
+                            <?php echo e($damagedItems ?? 0); ?>
+
                         </h4>
                         <p class="text-sm mb-0">Rusak</p>
                     </div>
@@ -131,7 +132,7 @@
 
 
 
-        {{-- Navigasi Cepat --}}
+        
         <div class="col-lg-6">
             <div class="card h-100">
                 <div class="card-header pb-0">
@@ -140,31 +141,31 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
 
-                        @php
+                        <?php
                             $menus = [
                                 ['Barang', 'ni-box-2', route('admin.items.index'), 'Kelola data barang'],
                                 ['Kategori', 'ni-tag', route('admin.categories.index'), 'Kelompokkan barang'],
                                 ['Supplier', 'ni-delivery-fast', route('admin.suppliers.index'), 'Data supplier'],
                                 ['User', 'ni-single-02', route('admin.users.index'), 'Manajemen pengguna'],
                             ];
-                        @endphp
+                        ?>
 
-                        @foreach ($menus as $menu)
+                        <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm bg-gradient-dark text-white rounded-circle me-3">
-                                    <i class="ni {{ $menu[1] }}"></i>
+                                    <i class="ni <?php echo e($menu[1]); ?>"></i>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0 text-sm fw-bold">{{ $menu[0] }}</h6>
-                                    <span class="text-xs text-secondary">{{ $menu[3] }}</span>
+                                    <h6 class="mb-0 text-sm fw-bold"><?php echo e($menu[0]); ?></h6>
+                                    <span class="text-xs text-secondary"><?php echo e($menu[3]); ?></span>
                                 </div>
                             </div>
-                            <a href="{{ $menu[2] }}" class="btn btn-sm btn-link text-dark">
+                            <a href="<?php echo e($menu[2]); ?>" class="btn btn-sm btn-link text-dark">
                                 <i class="ni ni-bold-right"></i>
                             </a>
                         </li>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </ul>
                 </div>
@@ -173,4 +174,6 @@
 
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>
