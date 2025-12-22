@@ -2,6 +2,8 @@
 
 ## Completed Tasks
 - [x] Add status column to users table for staff confirmation
+- [x] Run migration to add status column to users table
+- [x] Run migration to add 'rejected' to status enum
 - [x] Update User model with status fillable and helper methods
 - [x] Modify registration to only allow guest and staff roles
 - [x] Set status to 'pending' for staff, 'confirmed' for guest during registration

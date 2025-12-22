@@ -49,7 +49,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total Supplier
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers ?? 0 }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-truck fa-2x text-success"></i>
@@ -85,7 +85,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Supplier Aktif
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-star fa-2x text-warning"></i>
@@ -138,23 +138,21 @@
                     <h6 class="m-0 font-weight-bold text-primary">Barang Terbaru</h6>
                 </div>
                 <div class="card-body">
-                    @forelse($recentItems as $item)
+                    @forelse($recentItems ?? [] as $item)
                         <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
                             <div class="me-3">
-                                @if($item->image)
-                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
-                                @else
-                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                                        <i class="fas fa-box text-muted"></i>
-                                    </div>
-                                @endif
+                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-box text-white"></i>
+                                </div>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="fw-bold text-gray-800">{{ $item->name }}</div>
-                                <div class="text-xs text-muted">{{ $item->category->name ?? 'N/A' }} • Stok: {{ $item->stock_quantity }}</div>
+                                <div class="text-xs text-muted">{{ $item->category->name ?? 'N/A' }} • {{ $item->supplier->name ?? 'N/A' }}</div>
                             </div>
                             <div class="text-end">
-                                <span class="badge bg-success">Aktif</span>
+                                <span class="badge {{ $item->status === 'tersedia' ? 'bg-success' : ($item->status === 'dipinjam' ? 'bg-warning' : 'bg-danger') }}">
+                                    {{ $item->status === 'tersedia' ? 'Tersedia' : ($item->status === 'dipinjam' ? 'Dipinjam' : 'Dikeluarkan') }}
+                                </span>
                             </div>
                         </div>
                     @empty
