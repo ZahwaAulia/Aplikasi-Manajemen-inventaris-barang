@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\user\Documents\GitHub\Aplikasi-Manajemen-inventaris-barang\Aplikasi-Manajemen-inventaris-barang\resources\views\staff\categories\index.blade.php ENDPATH**/ ?>

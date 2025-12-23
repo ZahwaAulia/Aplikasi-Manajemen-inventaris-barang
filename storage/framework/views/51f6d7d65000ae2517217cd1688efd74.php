@@ -156,4 +156,4 @@
 
 </body>
 </html>
-<?php /**PATH C:\Users\user\Documents\GitHub\Aplikasi-Manajemen-inventaris-barang\Aplikasi-Manajemen-inventaris-barang\resources\views/welcome.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\user\Documents\GitHub\Aplikasi-Manajemen-inventaris-barang\Aplikasi-Manajemen-inventaris-barang\resources\views\welcome.blade.php ENDPATH**/ ?>
