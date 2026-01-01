@@ -6,12 +6,23 @@
             <div class="card bg-gradient-primary border-0">
                 <div class="card-body p-4">
                     <div class="row align-items-center">
-                        <div class="col-lg-8">
+                        <div class="col-lg-2 text-center">
+                            <?php if(Auth::user()->profile_photo): ?>
+                                <img src="<?php echo e(asset('storage/' . Auth::user()->profile_photo)); ?>" alt="Profile Photo" class="rounded-circle border border-white border-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <?php else: ?>
+                                <div class="bg-white rounded-circle d-flex align-items-center justify-content-center border border-white border-3" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-user-tie text-primary fa-2x"></i>
+                                </div>
+                            <?php endif; ?>
+                            <div class="mt-2">
+                                <a href="<?php echo e(route('profile.edit')); ?>" class="btn btn-sm btn-outline-light">
+                                    <i class="fas fa-edit me-1"></i>Edit Profile
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
                             <h2 class="text-white mb-2">Selamat Datang, <?php echo e(auth()->user()->name); ?>!</h2>
                             <p class="text-white-50 mb-0">Dashboard Staff - Sistem Manajemen Inventaris Barang</p>
-                        </div>
-                        <div class="col-lg-4 text-end">
-                            <i class="fas fa-user-tie fa-4x text-white opacity-25"></i>
                         </div>
                     </div>
                 </div>

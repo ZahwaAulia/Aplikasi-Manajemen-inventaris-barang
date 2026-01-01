@@ -8,6 +8,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\GuestItemController;
+use App\Http\Controllers\ProfileController;
 
 // Route::get('/', function () {
 //     return redirect()->route('login');
@@ -80,4 +81,10 @@ Route::middleware(['auth', 'role:guest'])->prefix('guest')->name('guest.')->grou
     // Categories (read-only)
     Route::get('/categories', [CategoryController::class, 'index'])
         ->name('categories.index');
+});
+
+// Profile Routes (for all authenticated users)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });

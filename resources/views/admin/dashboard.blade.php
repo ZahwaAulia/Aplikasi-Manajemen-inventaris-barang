@@ -11,6 +11,34 @@
         </div>
     </div>
 
+    {{-- Profile Section --}}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                        @if(Auth::user()->profile_photo)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Profile Photo" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                        @else
+                            <div class="bg-gradient-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-0">Welcome back, {{ Auth::user()->name }}!</h5>
+                        <p class="text-sm text-secondary mb-0">Administrator</p>
+                    </div>
+                    <div>
+                        <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit me-1"></i>Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Statistik Utama --}}
     <div class="row g-4">
         <div class="col-xl-3 col-sm-6">
