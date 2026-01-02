@@ -64,20 +64,26 @@
                                         </td>
                                         <td><?php echo e($category->created_at->format('d/m/Y')); ?></td>
                                         <td>
-                                            <a href="<?php echo e(route('admin.categories.show', $category)); ?>" class="btn btn-sm btn-info" title="Lihat Detail">
-                                                <i class="fas fa-eye"></i> Lihat
-                                            </a>
-                                            <a href="<?php echo e(route('admin.categories.edit', $category)); ?>" class="btn btn-sm btn-warning" title="Edit Kategori">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </a>
-                                            <form action="<?php echo e(route('admin.categories.destroy', $category)); ?>" method="POST" class="d-inline">
-                                                <?php echo csrf_field(); ?>
-                                                <?php echo method_field('DELETE'); ?>
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')" title="Hapus Kategori">
-                                                    <i class="fas fa-trash"></i> Hapus
-                                                </button>
-                                            </form>
-                                        </td>
+    <a href="<?php echo e(route('admin.categories.show', $category)); ?>" class="btn btn-sm btn-info">
+        <i class="fas fa-eye"></i> Lihat
+    </a>
+
+    <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
+        <a href="<?php echo e(route('admin.categories.edit', $category)); ?>" class="btn btn-sm btn-warning">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+
+        <form action="<?php echo e(route('admin.categories.destroy', $category)); ?>" method="POST" class="d-inline">
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('DELETE'); ?>
+            <button type="submit" class="btn btn-sm btn-danger"
+                onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
+                <i class="fas fa-trash"></i> Hapus
+            </button>
+        </form>
+    <?php endif; ?>
+</td>
+
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <tr>

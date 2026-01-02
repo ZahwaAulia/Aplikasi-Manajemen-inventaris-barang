@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -55,10 +55,8 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     // Categories (read-only)
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
-    // Suppliers (staff can propose)
-    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
-    Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
-    Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
+    // Suppliers (staff can propose and manage their own)
+    Route::resource('suppliers', SupplierController::class)->except(['destroy']);
 });
 
 // Guest Routes
