@@ -1,1 +1,0 @@
-<?php /**PATH C:\Users\user\Documents\GitHub\Aplikasi-Manajemen-inventaris-barang\Aplikasi-Manajemen-inventaris-barang\resources\views\layouts\sidebar_new.blade.php ENDPATH**/ ?>
