@@ -1,4 +1,4 @@
-<?php $__env->startSection('title', 'User Management'); ?>
+<?php $__env->startSection('title', 'Add New Admin'); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid py-4">
@@ -6,81 +6,117 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6>User Management</h6>
-                        <a href="<?php echo e(route('admin.users.create')); ?>" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i> Add Admin
-                        </a>
-                    </div>
+                    <h6>Add New Admin</h6>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
-                    <?php if(session('success')): ?>
-                        <div class="alert alert-success mx-4"><?php echo e(session('success')); ?></div>
-                    <?php endif; ?>
-                    <?php if(session('error')): ?>
-                        <div class="alert alert-danger mx-4"><?php echo e(session('error')); ?></div>
-                    <?php endif; ?>
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm"><?php echo e($user->name); ?></h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0"><?php echo e($user->email); ?></p>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-sm bg-gradient-<?php echo e($user->role === 'admin' ? 'primary' : ($user->role === 'staff' ? 'info' : 'success')); ?>">
-                                            <?php echo e(ucfirst($user->role)); ?>
+                <div class="card-body">
+                    <form action="<?php echo e(route('admin.users.store')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
 
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-sm bg-gradient-<?php echo e($user->status === 'confirmed' ? 'success' : 'warning'); ?>">
-                                            <?php echo e(ucfirst($user->status)); ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="form-control-label">Name</label>
+                                    <input class="form-control <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" type="text" name="name" id="name" value="<?php echo e(old('name')); ?>" required>
+                                    <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="form-control-label">Email</label>
+                                    <input class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" type="email" name="email" id="email" value="<?php echo e(old('email')); ?>" required>
+                                    <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
 
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <?php if($user->role === 'staff' && $user->status === 'pending'): ?>
-                                            <form action="<?php echo e(route('admin.users.confirm', $user->id)); ?>" method="POST" class="d-inline">
-                                                <?php echo csrf_field(); ?>
-                                                <?php echo method_field('POST'); ?>
-                                                <button type="submit" class="btn btn-success btn-sm">
-                                                    <i class="fas fa-check"></i> Confirm
-                                                </button>
-                                            </form>
-                                            <form action="<?php echo e(route('admin.users.reject', $user->id)); ?>" method="POST" class="d-inline">
-                                                <?php echo csrf_field(); ?>
-                                                <?php echo method_field('POST'); ?>
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menolak registrasi staff ini?')">
-                                                    <i class="fas fa-times"></i> Reject
-                                                </button>
-                                            </form>
-                                        <?php else: ?>
-                                            <span class="text-muted">No action needed</span>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="password" class="form-control-label">Password</label>
+                                    <input class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" type="password" name="password" id="password" required>
+                                    <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="password_confirmation" class="form-control-label">Confirm Password</label>
+                                    <input class="form-control <?php $__errorArgs = ['password_confirmation'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" type="password" name="password_confirmation" id="password_confirmation" required>
+                                    <?php $__errorArgs = ['password_confirmation'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Create Admin</button>
+                                <a href="<?php echo e(route('admin.users.index')); ?>" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
