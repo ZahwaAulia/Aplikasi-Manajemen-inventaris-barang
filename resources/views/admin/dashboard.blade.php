@@ -1,204 +1,207 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid py-4">
+    <div class="container-fluid py-4">
 
-    {{-- Title --}}
-    <div class="row mb-4">
-        <div class="col-12">
-            <h4 class="mb-0 fw-bold">Dashboard</h4>
-            <p class="text-sm text-secondary mb-0">Ringkasan data inventaris</p>
-        </div>
-    </div>
-
-    {{-- Profile Section --}}
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body d-flex align-items-center">
-                    <div class="me-3">
-                        @if(Auth::user()->profile_photo)
-                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Profile Photo" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
-                        @else
-                            <div class="bg-gradient-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                <i class="fas fa-user text-white"></i>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="flex-grow-1">
-                        <h5 class="mb-0">Welcome back, {{ Auth::user()->name }}!</h5>
-                        <p class="text-sm text-secondary mb-0">Administrator</p>
-                    </div>
-                    <div>
-                        <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-edit me-1"></i>Edit Profile
-                        </a>
-                    </div>
-                </div>
+        {{-- Title --}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="mb-0 fw-bold">Dashboard</h4>
+                <p class="text-sm text-secondary mb-0">Ringkasan data inventaris</p>
             </div>
         </div>
-    </div>
 
-    {{-- Statistik Utama --}}
-    <div class="row g-4">
-        <div class="col-xl-3 col-sm-6">
-            <div class="card h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="text-sm mb-1 text-uppercase fw-bold">Total Barang</p>
-                        <h4 class="mb-0 fw-bolder">{{ $totalItems ?? 0 }}</h4>
-                    </div>
-                    <div class="icon icon-shape bg-gradient-primary text-white rounded-circle">
-                        <i class="ni ni-box-2"></i>
+        {{-- Profile Section --}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="me-3">
+                            @if (Auth::user()->profile_photo)
+                                <img src="{{ asset(Auth::user()->profile_photo) }}" alt="Profile Photo"
+                                    style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+                            @else
+                                <div class="bg-gradient-dark rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="mb-0">Welcome back, {{ Auth::user()->name }}!</h5>
+                            <p class="text-sm text-secondary mb-0">Administrator</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit me-1"></i>Edit Profile
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-sm-6">
-            <div class="card h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="text-sm mb-1 text-uppercase fw-bold">Kategori</p>
-                        <h4 class="mb-0 fw-bolder">{{ $totalCategories ?? 0 }}</h4>
-                    </div>
-                    <div class="icon icon-shape bg-gradient-success text-white rounded-circle">
-                        <i class="ni ni-tag"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6">
-            <div class="card h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="text-sm mb-1 text-uppercase fw-bold">Supplier</p>
-                        <h4 class="mb-0 fw-bolder">{{ $totalSuppliers ?? 0 }}</h4>
-                    </div>
-                    <div class="icon icon-shape bg-gradient-info text-white rounded-circle">
-                        <i class="ni ni-delivery-fast"></i>
+        {{-- Statistik Utama --}}
+        <div class="row g-4">
+            <div class="col-xl-3 col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-sm mb-1 text-uppercase fw-bold">Total Barang</p>
+                            <h4 class="mb-0 fw-bolder">{{ $totalItems ?? 0 }}</h4>
+                        </div>
+                        <div class="icon icon-shape bg-gradient-primary text-white rounded-circle">
+                            <i class="ni ni-box-2"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-xl-3 col-sm-6">
-            <div class="card h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="text-sm mb-1 text-uppercase fw-bold">Tersedia</p>
-                        <h4 class="mb-0 fw-bolder">{{ $availableItems ?? 0 }}</h4>
-                    </div>
-                    <div class="icon icon-shape bg-gradient-warning text-white rounded-circle">
-                        <i class="ni ni-check-bold"></i>
+            <div class="col-xl-3 col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-sm mb-1 text-uppercase fw-bold">Kategori</p>
+                            <h4 class="mb-0 fw-bolder">{{ $totalCategories ?? 0 }}</h4>
+                        </div>
+                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle">
+                            <i class="ni ni-tag"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    {{-- Statistik & Navigasi --}}
-    <div class="row g-4 mt-2">
+            <div class="col-xl-3 col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-sm mb-1 text-uppercase fw-bold">Supplier</p>
+                            <h4 class="mb-0 fw-bolder">{{ $totalSuppliers ?? 0 }}</h4>
+                        </div>
+                        <div class="icon icon-shape bg-gradient-info text-white rounded-circle">
+                            <i class="ni ni-delivery-fast"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        {{-- Statistik Barang --}}
-      <div class="col-lg-6">
-    <div class="card h-100">
-        <div class="card-header pb-0">
-            <h6 class="mb-0 fw-bold">Statistik Barang</h6>
-            <p class="text-sm text-secondary mb-0">Ringkasan kondisi barang</p>
-        </div>
-
-        <div class="card-body">
-
-            {{-- BARIS ATAS --}}
-            <div class="row text-center mb-3">
-                <div class="col-6">
-                    <div class="p-3 border-radius-lg bg-gray-100">
-                        <div class="icon icon-shape bg-gradient-success text-white rounded-circle mb-2 mx-auto">
+            <div class="col-xl-3 col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="text-sm mb-1 text-uppercase fw-bold">Tersedia</p>
+                            <h4 class="mb-0 fw-bolder">{{ $availableItems ?? 0 }}</h4>
+                        </div>
+                        <div class="icon icon-shape bg-gradient-warning text-white rounded-circle">
                             <i class="ni ni-check-bold"></i>
                         </div>
-                        <h4 class="font-weight-bolder text-success mb-0">
-                            {{ $availableItems ?? 0 }}
-                        </h4>
-                        <p class="text-sm mb-0">Tersedia</p>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <div class="p-3 border-radius-lg bg-gray-100">
-                        <div class="icon icon-shape bg-gradient-warning text-white rounded-circle mb-2 mx-auto">
-                            <i class="ni ni-time-alarm"></i>
-                        </div>
-                        <h4 class="font-weight-bolder text-warning mb-0">
-                            {{ $borrowedItems ?? 0 }}
-                        </h4>
-                        <p class="text-sm mb-0">Dipinjam</p>
                     </div>
                 </div>
             </div>
-
-            {{-- BARIS BAWAH --}}
-            <div class="row text-center">
-                <div class="col-12">
-                    <div class="p-3 border-radius-lg bg-gray-100">
-                        <div class="icon icon-shape bg-gradient-danger text-white rounded-circle mb-2 mx-auto">
-                            <i class="ni ni-fat-remove"></i>
-                        </div>
-                        <h4 class="font-weight-bolder text-danger mb-0">
-                            {{ $damagedItems ?? 0 }}
-                        </h4>
-                        <p class="text-sm mb-0">Rusak</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
-</div>
 
+        {{-- Statistik & Navigasi --}}
+        <div class="row g-4 mt-2">
 
+            {{-- Statistik Barang --}}
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header pb-0">
+                        <h6 class="mb-0 fw-bold">Statistik Barang</h6>
+                        <p class="text-sm text-secondary mb-0">Ringkasan kondisi barang</p>
+                    </div>
 
-        {{-- Navigasi Cepat --}}
-        <div class="col-lg-6">
-            <div class="card h-100">
-                <div class="card-header pb-0">
-                    <h6 class="mb-0 fw-bold">Navigasi Cepat</h6>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
+                    <div class="card-body">
 
-                        @php
-                            $menus = [
-                                ['Barang', 'ni-box-2', route('admin.items.index'), 'Kelola data barang'],
-                                ['Kategori', 'ni-tag', route('admin.categories.index'), 'Kelompokkan barang'],
-                                ['Supplier', 'ni-delivery-fast', route('admin.suppliers.index'), 'Data supplier'],
-                                ['User', 'ni-single-02', route('admin.users.index'), 'Manajemen pengguna'],
-                            ];
-                        @endphp
-
-                        @foreach ($menus as $menu)
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div class="d-flex align-items-center">
-                                <div class="icon icon-shape icon-sm bg-gradient-dark text-white rounded-circle me-3">
-                                    <i class="ni {{ $menu[1] }}"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0 text-sm fw-bold">{{ $menu[0] }}</h6>
-                                    <span class="text-xs text-secondary">{{ $menu[3] }}</span>
+                        {{-- BARIS ATAS --}}
+                        <div class="row text-center mb-3">
+                            <div class="col-6">
+                                <div class="p-3 border-radius-lg bg-gray-100">
+                                    <div class="icon icon-shape bg-gradient-success text-white rounded-circle mb-2 mx-auto">
+                                        <i class="ni ni-check-bold"></i>
+                                    </div>
+                                    <h4 class="font-weight-bolder text-success mb-0">
+                                        {{ $availableItems ?? 0 }}
+                                    </h4>
+                                    <p class="text-sm mb-0">Tersedia</p>
                                 </div>
                             </div>
-                            <a href="{{ $menu[2] }}" class="btn btn-sm btn-link text-dark">
-                                <i class="ni ni-bold-right"></i>
-                            </a>
-                        </li>
-                        @endforeach
 
-                    </ul>
+                            <div class="col-6">
+                                <div class="p-3 border-radius-lg bg-gray-100">
+                                    <div class="icon icon-shape bg-gradient-warning text-white rounded-circle mb-2 mx-auto">
+                                        <i class="ni ni-time-alarm"></i>
+                                    </div>
+                                    <h4 class="font-weight-bolder text-warning mb-0">
+                                        {{ $borrowedItems ?? 0 }}
+                                    </h4>
+                                    <p class="text-sm mb-0">Dipinjam</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- BARIS BAWAH --}}
+                        <div class="row text-center">
+                            <div class="col-12">
+                                <div class="p-3 border-radius-lg bg-gray-100">
+                                    <div class="icon icon-shape bg-gradient-danger text-white rounded-circle mb-2 mx-auto">
+                                        <i class="ni ni-fat-remove"></i>
+                                    </div>
+                                    <h4 class="font-weight-bolder text-danger mb-0">
+                                        {{ $damagedItems ?? 0 }}
+                                    </h4>
+                                    <p class="text-sm mb-0">Rusak</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
+
+
+            {{-- Navigasi Cepat --}}
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header pb-0">
+                        <h6 class="mb-0 fw-bold">Navigasi Cepat</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+
+                            @php
+                                $menus = [
+                                    ['Barang', 'ni-box-2', route('admin.items.index'), 'Kelola data barang'],
+                                    ['Kategori', 'ni-tag', route('admin.categories.index'), 'Kelompokkan barang'],
+                                    ['Supplier', 'ni-delivery-fast', route('admin.suppliers.index'), 'Data supplier'],
+                                    ['User', 'ni-single-02', route('admin.users.index'), 'Manajemen pengguna'],
+                                ];
+                            @endphp
+
+                            @foreach ($menus as $menu)
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="icon icon-shape icon-sm bg-gradient-dark text-white rounded-circle me-3">
+                                            <i class="ni {{ $menu[1] }}"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 text-sm fw-bold">{{ $menu[0] }}</h6>
+                                            <span class="text-xs text-secondary">{{ $menu[3] }}</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{ $menu[2] }}" class="btn btn-sm btn-link text-dark">
+                                        <i class="ni ni-bold-right"></i>
+                                    </a>
+                                </li>
+                            @endforeach
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
 @endsection
