@@ -24,14 +24,17 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if ($request->hasFile('profile_photo')) {
-            // Delete old photo if exists
-            if ($user->profile_photo && Storage::disk('public')->exists($user->profile_photo)) {
-                Storage::disk('public')->delete($user->profile_photo);
+
+            // hapus foto lama
+            if ($user->profile_photo && file_exists(public_path($user->profile_photo))) {
+                unlink(public_path($user->profile_photo));
             }
 
-            // Store new photo
-            $path = $request->file('profile_photo')->store('profile-photos', 'public');
-            $user->profile_photo = $path;
+            // simpan foto ke public/profile-photos
+            $filename = time() . '_' . $request->profile_photo->getClientOriginalName();
+            $request->profile_photo->move(public_path('profile-photos'), $filename);
+
+            $user->profile_photo = 'profile-photos/' . $filename;
             $user->save();
         }
 
