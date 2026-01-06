@@ -9,11 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!Auth::check()) {
@@ -23,16 +18,15 @@ class RoleMiddleware
         $user = Auth::user();
 
         if (!in_array($user->role, $roles)) {
-            // Redirect to appropriate dashboard based on user role
             if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             } elseif ($user->isStaff()) {
                 return redirect()->route('staff.dashboard');
             } elseif ($user->isGuest()) {
                 return redirect()->route('guest.dashboard');
-            } else {
-                abort(403, 'Unauthorized access.');
             }
+
+            abort(403);
         }
 
         return $next($request);
