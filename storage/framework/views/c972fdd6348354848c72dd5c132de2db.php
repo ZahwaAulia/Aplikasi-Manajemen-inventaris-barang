@@ -4,124 +4,344 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>Kelola Barang</h4>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <a href="<?php echo e(route('staff.items.create')); ?>" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Tambah Barang
-                            </a>
-                        </div>
-                    </div>
+                    <h4>Edit Barang</h4>
                 </div>
                 <div class="card-body">
-                    <!-- Search and Filter Form -->
-                    <form method="GET" action="<?php echo e(route('staff.items.index')); ?>" class="mb-4">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="search" class="form-control" placeholder="Cari nama, deskripsi, lokasi..." value="<?php echo e(request('search')); ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <select name="category_id" class="form-control">
-                                    <option value="">Semua Kategori</option>
-                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($category->id); ?>" <?php echo e(request('category_id') == $category->id ? 'selected' : ''); ?>>
-                                        <?php echo e($category->name); ?>
+                    <form action="<?php echo e(route('staff.items.update', $item)); ?>" method="POST" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
 
-                                    </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Nama Barang *</label>
+                                    <input type="text" class="form-control <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="name" name="name" value="<?php echo e(old('name', $item->name)); ?>" required>
+                                    <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <select name="status" class="form-control">
-                                    <option value="">Semua Status</option>
-                                    <option value="tersedia" <?php echo e(request('status') == 'tersedia' ? 'selected' : ''); ?>>Tersedia</option>
-                                    <option value="dipinjam" <?php echo e(request('status') == 'dipinjam' ? 'selected' : ''); ?>>Dipinjam</option>
-                                    <option value="dikeluarkan" <?php echo e(request('status') == 'dikeluarkan' ? 'selected' : ''); ?>>Dikeluarkan</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <select name="condition" class="form-control">
-                                    <option value="">Semua Kondisi</option>
-                                    <option value="baik" <?php echo e(request('condition') == 'baik' ? 'selected' : ''); ?>>Baik</option>
-                                    <option value="rusak" <?php echo e(request('condition') == 'rusak' ? 'selected' : ''); ?>>Rusak</option>
-                                    <option value="perlu_perbaikan" <?php echo e(request('condition') == 'perlu_perbaikan' ? 'selected' : ''); ?>>Perlu Perbaikan</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-secondary me-2">
-                                    <i class="fas fa-search"></i> Cari
-                                </button>
-                                <a href="<?php echo e(route('staff.items.index')); ?>" class="btn btn-outline-secondary">
-                                    <i class="fas fa-times"></i> Reset
-                                </a>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="category_id">Kategori *</label>
+                                    <select class="form-control <?php $__errorArgs = ['category_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="category_id" name="category_id" required>
+                                        <option value="">Pilih Kategori</option>
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id', $item->category_id) == $category->id ? 'selected' : ''); ?>>
+                                            <?php echo e($category->name); ?>
+
+                                        </option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                    <?php $__errorArgs = ['category_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="supplier_id">Supplier</label>
+                                    <select class="form-control <?php $__errorArgs = ['supplier_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="supplier_id" name="supplier_id">
+                                        <option value="">Pilih Supplier</option>
+                                        <?php $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $supplier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($supplier->id); ?>" <?php echo e(old('supplier_id', $item->supplier_id) == $supplier->id ? 'selected' : ''); ?>>
+                                            <?php echo e($supplier->name); ?>
+
+                                        </option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                    <?php $__errorArgs = ['supplier_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="stock_quantity">Jumlah Stok *</label>
+                                    <input type="number" class="form-control <?php $__errorArgs = ['stock_quantity'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="stock_quantity" name="stock_quantity" value="<?php echo e(old('stock_quantity', $item->stock_quantity)); ?>" min="0" required>
+                                    <?php $__errorArgs = ['stock_quantity'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="unit_price">Harga Satuan</label>
+                                    <input type="number" class="form-control <?php $__errorArgs = ['unit_price'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="unit_price" name="unit_price" value="<?php echo e(old('unit_price', $item->unit_price)); ?>" min="0" step="0.01">
+                                    <?php $__errorArgs = ['unit_price'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="location">Lokasi</label>
+                                    <input type="text" class="form-control <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="location" name="location" value="<?php echo e(old('location', $item->location)); ?>">
+                                    <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="condition">Kondisi *</label>
+                                    <select class="form-control <?php $__errorArgs = ['condition'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="condition" name="condition" required>
+                                        <option value="">Pilih Kondisi</option>
+                                        <option value="baik" <?php echo e(old('condition', $item->condition) == 'baik' ? 'selected' : ''); ?>>Baik</option>
+                                        <option value="rusak" <?php echo e(old('condition', $item->condition) == 'rusak' ? 'selected' : ''); ?>>Rusak</option>
+                                        <option value="perlu_perbaikan" <?php echo e(old('condition', $item->condition) == 'perlu_perbaikan' ? 'selected' : ''); ?>>Perlu Perbaikan</option>
+                                    </select>
+                                    <?php $__errorArgs = ['condition'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status *</label>
+                                    <select class="form-control <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="status" name="status" required>
+                                        <option value="">Pilih Status</option>
+                                        <option value="tersedia" <?php echo e(old('status', $item->status) == 'tersedia' ? 'selected' : ''); ?>>Tersedia</option>
+                                        <option value="dipinjam" <?php echo e(old('status', $item->status) == 'dipinjam' ? 'selected' : ''); ?>>Dipinjam</option>
+                                        <option value="dikeluarkan" <?php echo e(old('status', $item->status) == 'dikeluarkan' ? 'selected' : ''); ?>>Dikeluarkan</option>
+                                    </select>
+                                    <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="purchase_date">Tanggal Pembelian</label>
+                                    <input type="date" class="form-control <?php $__errorArgs = ['purchase_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="purchase_date" name="purchase_date" value="<?php echo e(old('purchase_date', $item->purchase_date ? $item->purchase_date->format('Y-m-d') : '')); ?>">
+                                    <?php $__errorArgs = ['purchase_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="warranty_expiry">Tanggal Kadaluarsa Garansi</label>
+                                    <input type="date" class="form-control <?php $__errorArgs = ['warranty_expiry'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="warranty_expiry" name="warranty_expiry" value="<?php echo e(old('warranty_expiry', $item->warranty_expiry ? $item->warranty_expiry->format('Y-m-d') : '')); ?>">
+                                    <?php $__errorArgs = ['warranty_expiry'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Deskripsi</label>
+                            <textarea class="form-control <?php $__errorArgs = ['description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="description" name="description" rows="3"><?php echo e(old('description', $item->description)); ?></textarea>
+                            <?php $__errorArgs = ['description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Gambar</label>
+                            <input type="file" class="form-control <?php $__errorArgs = ['image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="image" name="image" accept="image/*">
+                            <?php if($item->image): ?>
+                                <div class="mt-2">
+                                    <img src="<?php echo e(asset('storage/' . $item->image)); ?>" alt="<?php echo e($item->name); ?>" width="100" height="100" class="rounded">
+                                    <p class="text-muted small mt-1">Gambar saat ini</p>
+                                </div>
+                            <?php endif; ?>
+                            <?php $__errorArgs = ['image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <div class="invalid-feedback"><?php echo e($message); ?></div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="<?php echo e(route('staff.items.index')); ?>" class="btn btn-secondary">Kembali</a>
+                            <button type="submit" class="btn btn-primary">Update Barang</button>
+                        </div>
                     </form>
-
-                    <!-- Items Table -->
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Gambar</th>
-                                    <th>Nama</th>
-                                    <th>Kategori</th>
-                                    <th>Supplier</th>
-                                    <th>Stok</th>
-                                    <th>Kondisi</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $__empty_1 = true; $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <tr>
-                                    <td>
-                                        <?php if($item->image): ?>
-                                        <img src="<?php echo e(asset('storage/' . $item->image)); ?>" alt="<?php echo e($item->name); ?>" width="50" height="50" class="rounded">
-                                        <?php else: ?>
-                                        <span class="text-muted">No Image</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?php echo e($item->name); ?></td>
-                                    <td><?php echo e($item->category->name ?? 'N/A'); ?></td>
-                                    <td><?php echo e($item->supplier->name ?? 'N/A'); ?></td>
-                                    <td><?php echo e($item->stock_quantity); ?></td>
-                                    <td>
-                                        <span class="badge bg-<?php echo e($item->condition == 'baik' ? 'success' : ($item->condition == 'rusak' ? 'danger' : 'warning')); ?>">
-                                            <?php echo e(ucfirst(str_replace('_', ' ', $item->condition))); ?>
-
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-<?php echo e($item->status == 'tersedia' ? 'success' : ($item->status == 'dipinjam' ? 'warning' : 'secondary')); ?>">
-                                            <?php echo e(ucfirst($item->status)); ?>
-
-                                        </span>
-                                    </td>
-                                    <td class="d-flex gap-1">
-                                        <a href="<?php echo e(route('staff.items.show', $item)); ?>" class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye me-1"></i> Detail
-                                        </a>
-                                        <a href="<?php echo e(route('staff.items.edit', $item)); ?>" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit me-1"></i> Edit
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <tr>
-                                    <td colspan="8" class="text-center">Tidak ada data barang.</td>
-                                </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <?php echo e($items->links()); ?>
-
                 </div>
             </div>
         </div>

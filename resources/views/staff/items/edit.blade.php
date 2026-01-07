@@ -6,120 +6,174 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>Kelola Barang</h4>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <a href="{{ route('staff.items.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Tambah Barang
-                            </a>
-                        </div>
-                    </div>
+                    <h4>Edit Barang</h4>
                 </div>
                 <div class="card-body">
-                    <!-- Search and Filter Form -->
-                    <form method="GET" action="{{ route('staff.items.index') }}" class="mb-4">
+                    <form action="{{ route('staff.items.update', $item) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
                         <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" name="search" class="form-control" placeholder="Cari nama, deskripsi, lokasi..." value="{{ request('search') }}">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Nama Barang *</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $item->name) }}" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <select name="category_id" class="form-control">
-                                    <option value="">Semua Kategori</option>
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <select name="status" class="form-control">
-                                    <option value="">Semua Status</option>
-                                    <option value="tersedia" {{ request('status') == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
-                                    <option value="dipinjam" {{ request('status') == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                                    <option value="dikeluarkan" {{ request('status') == 'dikeluarkan' ? 'selected' : '' }}>Dikeluarkan</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <select name="condition" class="form-control">
-                                    <option value="">Semua Kondisi</option>
-                                    <option value="baik" {{ request('condition') == 'baik' ? 'selected' : '' }}>Baik</option>
-                                    <option value="rusak" {{ request('condition') == 'rusak' ? 'selected' : '' }}>Rusak</option>
-                                    <option value="perlu_perbaikan" {{ request('condition') == 'perlu_perbaikan' ? 'selected' : '' }}>Perlu Perbaikan</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-secondary me-2">
-                                    <i class="fas fa-search"></i> Cari
-                                </button>
-                                <a href="{{ route('staff.items.index') }}" class="btn btn-outline-secondary">
-                                    <i class="fas fa-times"></i> Reset
-                                </a>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="category_id">Kategori *</label>
+                                    <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
+                                        <option value="">Pilih Kategori</option>
+                                        @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" {{ old('category_id', $item->category_id) == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="supplier_id">Supplier</label>
+                                    <select class="form-control @error('supplier_id') is-invalid @enderror" id="supplier_id" name="supplier_id">
+                                        <option value="">Pilih Supplier</option>
+                                        @foreach($suppliers as $supplier)
+                                        <option value="{{ $supplier->id }}" {{ old('supplier_id', $item->supplier_id) == $supplier->id ? 'selected' : '' }}>
+                                            {{ $supplier->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    @error('supplier_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="stock_quantity">Jumlah Stok *</label>
+                                    <input type="number" class="form-control @error('stock_quantity') is-invalid @enderror" id="stock_quantity" name="stock_quantity" value="{{ old('stock_quantity', $item->stock_quantity) }}" min="0" required>
+                                    @error('stock_quantity')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="unit_price">Harga Satuan</label>
+                                    <input type="number" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price" name="unit_price" value="{{ old('unit_price', $item->unit_price) }}" min="0" step="0.01">
+                                    @error('unit_price')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="location">Lokasi</label>
+                                    <input type="text" class="form-control @error('location') is-invalid @enderror" id="location" name="location" value="{{ old('location', $item->location) }}">
+                                    @error('location')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="condition">Kondisi *</label>
+                                    <select class="form-control @error('condition') is-invalid @enderror" id="condition" name="condition" required>
+                                        <option value="">Pilih Kondisi</option>
+                                        <option value="baik" {{ old('condition', $item->condition) == 'baik' ? 'selected' : '' }}>Baik</option>
+                                        <option value="rusak" {{ old('condition', $item->condition) == 'rusak' ? 'selected' : '' }}>Rusak</option>
+                                        <option value="perlu_perbaikan" {{ old('condition', $item->condition) == 'perlu_perbaikan' ? 'selected' : '' }}>Perlu Perbaikan</option>
+                                    </select>
+                                    @error('condition')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status *</label>
+                                    <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
+                                        <option value="">Pilih Status</option>
+                                        <option value="tersedia" {{ old('status', $item->status) == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                                        <option value="dipinjam" {{ old('status', $item->status) == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                                        <option value="dikeluarkan" {{ old('status', $item->status) == 'dikeluarkan' ? 'selected' : '' }}>Dikeluarkan</option>
+                                    </select>
+                                    @error('status')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="purchase_date">Tanggal Pembelian</label>
+                                    <input type="date" class="form-control @error('purchase_date') is-invalid @enderror" id="purchase_date" name="purchase_date" value="{{ old('purchase_date', $item->purchase_date ? $item->purchase_date->format('Y-m-d') : '') }}">
+                                    @error('purchase_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="warranty_expiry">Tanggal Kadaluarsa Garansi</label>
+                                    <input type="date" class="form-control @error('warranty_expiry') is-invalid @enderror" id="warranty_expiry" name="warranty_expiry" value="{{ old('warranty_expiry', $item->warranty_expiry ? $item->warranty_expiry->format('Y-m-d') : '') }}">
+                                    @error('warranty_expiry')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Deskripsi</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $item->description) }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Gambar</label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
+                            @if($item->image)
+                                <div class="mt-2">
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="100" height="100" class="rounded">
+                                    <p class="text-muted small mt-1">Gambar saat ini</p>
+                                </div>
+                            @endif
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('staff.items.index') }}" class="btn btn-secondary">Kembali</a>
+                            <button type="submit" class="btn btn-primary">Update Barang</button>
+                        </div>
                     </form>
-
-                    <!-- Items Table -->
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Gambar</th>
-                                    <th>Nama</th>
-                                    <th>Kategori</th>
-                                    <th>Supplier</th>
-                                    <th>Stok</th>
-                                    <th>Kondisi</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($items as $item)
-                                <tr>
-                                    <td>
-                                        @if($item->image)
-                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="50" height="50" class="rounded">
-                                        @else
-                                        <span class="text-muted">No Image</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->category->name ?? 'N/A' }}</td>
-                                    <td>{{ $item->supplier->name ?? 'N/A' }}</td>
-                                    <td>{{ $item->stock_quantity }}</td>
-                                    <td>
-                                        <span class="badge bg-{{ $item->condition == 'baik' ? 'success' : ($item->condition == 'rusak' ? 'danger' : 'warning') }}">
-                                            {{ ucfirst(str_replace('_', ' ', $item->condition)) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-{{ $item->status == 'tersedia' ? 'success' : ($item->status == 'dipinjam' ? 'warning' : 'secondary') }}">
-                                            {{ ucfirst($item->status) }}
-                                        </span>
-                                    </td>
-                                    <td class="d-flex gap-1">
-                                        <a href="{{ route('staff.items.show', $item) }}" class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye me-1"></i> Detail
-                                        </a>
-                                        <a href="{{ route('staff.items.edit', $item) }}" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit me-1"></i> Edit
-                                        </a>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="8" class="text-center">Tidak ada data barang.</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    {{ $items->links() }}
                 </div>
             </div>
         </div>
