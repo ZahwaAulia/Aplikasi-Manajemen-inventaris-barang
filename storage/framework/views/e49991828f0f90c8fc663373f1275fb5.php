@@ -239,14 +239,32 @@
 
         .opacity-6 {
             opacity: 0.6 !important;
+        }
+
+        .sidenav {
+            height: calc(100vh - 1rem);
+            overflow-x: hidden;
+        }
+
+        #sidenav-collapse-main {
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Hilangkan scroll aneh global */
+        body {
+            overflow-x: hidden;
+        }
     </style>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
 
     
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl fixed-start ms-3"
         id="sidenav-main">
+
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
@@ -310,7 +328,8 @@
                             <li class="nav-item d-flex align-items-center">
                                 <form method="POST" action="<?php echo e(route('logout')); ?>" class="d-inline">
                                     <?php echo csrf_field(); ?>
-                                    <button type="submit" class="nav-link text-body font-weight-bold px-0 border-0 bg-transparent">
+                                    <button type="submit"
+                                        class="nav-link text-body font-weight-bold px-0 border-0 bg-transparent">
                                         <i class="fa fa-sign-out-alt me-sm-1"></i>
                                         <span class="d-sm-inline d-none">Logout</span>
                                     </button>

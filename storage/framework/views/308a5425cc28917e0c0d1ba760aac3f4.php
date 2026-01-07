@@ -12,8 +12,6 @@
                                         class="rounded-circle border border-white border-3"
                                         style="width: 80px; height: 80px; object-fit: cover;">
 
-                                    class="rounded-circle border border-white border-3"
-                                    style="width: 80px; height: 80px; object-fit: cover;">
                                 <?php else: ?>
                                     <div class="bg-white rounded-circle d-flex align-items-center justify-content-center border border-white border-3"
                                         style="width: 80px; height: 80px;">

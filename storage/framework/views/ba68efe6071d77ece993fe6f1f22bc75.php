@@ -116,11 +116,23 @@ body{
 .item-card:hover{
     transform:translateY(-8px);
 }
-.item-card img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
+.item-image{
+    height:160px;              /* ukuran pas */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f3f4f6;
 }
+
+.item-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;        /* foto utuh, tidak kepotong */
+}
+
+
+
+
 .item-body{
     padding:25px;
 }
@@ -170,7 +182,7 @@ footer{
 <nav class="navbar fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <i class="fas fa-warehouse me-2"></i>Inventory System
+            <i class="fas fa-warehouse me-2"></i>Manajemen Investaris Barang
         </a>
         <a href="<?php echo e(route('login')); ?>" class="btn btn-outline-primary px-4">Login</a>
     </div>
@@ -215,29 +227,31 @@ footer{
 <section class="section">
     <div class="container">
         <h2 class="section-title">Barang Terbaru</h2>
-        <p class="section-subtitle">
-            Guest dapat melihat data barang, login diperlukan untuk mengelola
-        </p>
+
 
         <div class="items-grid">
             <?php $__currentLoopData = $stats['recent_items']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="item-card">
-                <?php if($item->image): ?>
-                    <img src="<?php echo e(asset('storage/' . $item->image)); ?>" alt="<?php echo e($item->name); ?>">
-                <?php else: ?>
-                    <img src="https://via.placeholder.com/400x200" alt="No Image">
-                <?php endif; ?>
-                <div class="item-body">
-                    <h5><?php echo e($item->name); ?></h5>
-                    <div class="item-category">
-                        <?php echo e($item->category->name ?? 'Tanpa Kategori'); ?>
+           <div class="item-card">
+    <div class="item-image">
+        <?php if($item->image): ?>
+            <img src="<?php echo e(asset('storage/' . $item->image)); ?>" alt="<?php echo e($item->name); ?>">
+        <?php else: ?>
+            <img src="https://via.placeholder.com/400x200" alt="No Image">
+        <?php endif; ?>
+    </div>
 
-                    </div>
-                    <span class="item-stock">
-                        <?php echo e($item->stock_quantity); ?> unit tersedia
-                    </span>
-                </div>
-            </div>
+    <div class="item-body">
+        <h5><?php echo e($item->name); ?></h5>
+        <div class="item-category">
+            <?php echo e($item->category->name ?? 'Tanpa Kategori'); ?>
+
+        </div>
+        <span class="item-stock">
+            <?php echo e($item->stock_quantity); ?> unit tersedia
+        </span>
+    </div>
+</div>
+
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
@@ -255,7 +269,7 @@ footer{
 
 <!-- FOOTER -->
 <footer>
-    © <?php echo e(date('Y')); ?> Inventory System — All rights reserved
+    © <?php echo e(date('Y')); ?> Inventory System — Zahwa & Raja
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
