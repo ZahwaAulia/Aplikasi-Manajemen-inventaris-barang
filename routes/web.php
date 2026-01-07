@@ -14,7 +14,13 @@ use App\Http\Controllers\ProfileController;
 //     return redirect()->route('login');
 
 Route::get('/', function () {
-    return view('welcome');
+    $stats = [
+        'total_items' => \App\Models\Item::count(),
+        'total_categories' => \App\Models\Category::count(),
+        'total_suppliers' => \App\Models\Supplier::count(),
+        'recent_items' => \App\Models\Item::with('category')->latest()->take(3)->get()
+    ];
+    return view('welcome', compact('stats'));
 })->name('welcome');
 
 // Auth Routes
@@ -59,22 +65,18 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     Route::resource('suppliers', SupplierController::class)->except(['destroy']);
 });
 
-// Guest Routes
-Route::middleware(['auth', 'role:guest'])->prefix('guest')->name('guest.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'guest'])->name('dashboard');
-
-//     // Items (read-only for guests)
-//     // Route::get('/items', [ItemController::class, 'index'])->name('items.index');
-//     // Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
-
-//     // Categories (read-only)
-//     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-
- Route::get('/items', [GuestItemController::class, 'index'])
+// Public Guest Routes (for unauthenticated users to view limited items)
+Route::prefix('guest')->name('guest.')->group(function () {
+    Route::get('/items', [GuestItemController::class, 'index'])
         ->name('items.index');
 
     Route::get('/items/{item}', [GuestItemController::class, 'show'])
         ->name('items.show');
+});
+
+// Authenticated Guest Routes
+Route::middleware(['auth', 'role:guest'])->prefix('guest')->name('guest.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'guest'])->name('dashboard');
 
     // Categories (read-only)
     Route::get('/categories', [CategoryController::class, 'index'])

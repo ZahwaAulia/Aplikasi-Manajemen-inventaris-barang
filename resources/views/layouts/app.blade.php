@@ -300,12 +300,30 @@
                         </div>
                     </div>
                     <ul class="navbar-nav justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
-                            </a>
-                        </li>
+                        @auth
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link text-body font-weight-bold px-0">
+                                    <i class="fa fa-user me-sm-1"></i>
+                                    <span class="d-sm-inline d-none">Welcome, {{ Auth::user()->name }}</span>
+                                </span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="nav-link text-body font-weight-bold px-0 border-0 bg-transparent">
+                                        <i class="fa fa-sign-out-alt me-sm-1"></i>
+                                        <span class="d-sm-inline d-none">Logout</span>
+                                    </button>
+                                </form>
+                            </li>
+                        @else
+                            <li class="nav-item d-flex align-items-center">
+                                <a href="{{ route('login') }}" class="nav-link text-body font-weight-bold px-0">
+                                    <i class="fa fa-user me-sm-1"></i>
+                                    <span class="d-sm-inline d-none">Sign In</span>
+                                </a>
+                            </li>
+                        @endauth
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                                 <div class="sidenav-toggler-inner">

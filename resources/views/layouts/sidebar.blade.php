@@ -68,5 +68,19 @@
         </a>
     </li>
 
+    <!-- Logout Link -->
+    <li class="nav-item mt-3">
+        <form method="POST" action="{{ route('logout') }}" class="d-inline w-100">
+            @csrf
+            <button type="submit" class="nav-link border-0 bg-transparent text-white w-100 text-start">
+                <div
+                    class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="ni ni-button-power text-danger text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Logout</span>
+            </button>
+        </form>
+    </li>
+
 
 </ul>
