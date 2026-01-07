@@ -8,9 +8,12 @@
                         <div class="row align-items-center">
                             <div class="col-lg-2 text-center">
                                 <?php if(Auth::user()->profile_photo): ?>
-                                    <img src="<?php echo e(asset('storage/' . Auth::user()->profile_photo)); ?>" alt="Profile Photo"
+                                    <img src="<?php echo e(asset(Auth::user()->profile_photo)); ?>" alt="Profile Photo"
                                         class="rounded-circle border border-white border-3"
                                         style="width: 80px; height: 80px; object-fit: cover;">
+
+                                    class="rounded-circle border border-white border-3"
+                                    style="width: 80px; height: 80px; object-fit: cover;">
                                 <?php else: ?>
                                     <div class="bg-white rounded-circle d-flex align-items-center justify-content-center border border-white border-3"
                                         style="width: 80px; height: 80px;">
@@ -145,164 +148,164 @@
 
 
 
-    <style>
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+        <style>
+            .bg-gradient-primary {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
 
-        .border-left-primary {
-            border-left: 0.25rem solid #4e73df !important;
-        }
+            .border-left-primary {
+                border-left: 0.25rem solid #4e73df !important;
+            }
 
-        .border-left-success {
-            border-left: 0.25rem solid #1cc88a !important;
-        }
+            .border-left-success {
+                border-left: 0.25rem solid #1cc88a !important;
+            }
 
-        .border-left-info {
-            border-left: 0.25rem solid #36b9cc !important;
-        }
+            .border-left-info {
+                border-left: 0.25rem solid #36b9cc !important;
+            }
 
-        .border-left-warning {
-            border-left: 0.25rem solid #f6c23e !important;
-        }
+            .border-left-warning {
+                border-left: 0.25rem solid #f6c23e !important;
+            }
 
-        .text-gray-800 {
-            color: #5a5c69 !important;
-        }
+            .text-gray-800 {
+                color: #5a5c69 !important;
+            }
 
-        .text-gray-300 {
-            color: #dddfeb !important;
-        }
+            .text-gray-300 {
+                color: #dddfeb !important;
+            }
 
-        .shadow {
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
-        }
+            .shadow {
+                box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+            }
 
-        .me-3 {
-            margin-right: 1rem !important;
-        }
+            .me-3 {
+                margin-right: 1rem !important;
+            }
 
-        .py-3 {
-            padding-top: 1rem !important;
-            padding-bottom: 1rem !important;
-        }
+            .py-3 {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
 
-        .mb-3 {
-            margin-bottom: 1rem !important;
-        }
+            .mb-3 {
+                margin-bottom: 1rem !important;
+            }
 
-        .mb-4 {
-            margin-bottom: 1.5rem !important;
-        }
+            .mb-4 {
+                margin-bottom: 1.5rem !important;
+            }
 
-        .pb-3 {
-            padding-bottom: 1rem !important;
-        }
+            .pb-3 {
+                padding-bottom: 1rem !important;
+            }
 
-        .border-bottom {
-            border-bottom: 1px solid #e3e6f0 !important;
-        }
+            .border-bottom {
+                border-bottom: 1px solid #e3e6f0 !important;
+            }
 
-        .py-4 {
-            padding-top: 1.5rem !important;
-            padding-bottom: 1.5rem !important;
-        }
+            .py-4 {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
 
-        .text-xs {
-            font-size: 0.7rem;
-        }
+            .text-xs {
+                font-size: 0.7rem;
+            }
 
-        .font-weight-bold {
-            font-weight: 700 !important;
-        }
+            .font-weight-bold {
+                font-weight: 700 !important;
+            }
 
-        .text-uppercase {
-            text-transform: uppercase !important;
-        }
+            .text-uppercase {
+                text-transform: uppercase !important;
+            }
 
-        .h5 {
-            font-size: 1.25rem;
-        }
+            .h5 {
+                font-size: 1.25rem;
+            }
 
-        .mb-0 {
-            margin-bottom: 0 !important;
-        }
+            .mb-0 {
+                margin-bottom: 0 !important;
+            }
 
-        .mb-1 {
-            margin-bottom: 0.25rem !important;
-        }
+            .mb-1 {
+                margin-bottom: 0.25rem !important;
+            }
 
-        .mb-2 {
-            margin-bottom: 0.5rem !important;
-        }
+            .mb-2 {
+                margin-bottom: 0.5rem !important;
+            }
 
-        .m-0 {
-            margin: 0 !important;
-        }
+            .m-0 {
+                margin: 0 !important;
+            }
 
-        .mr-2 {
-            margin-right: 0.5rem !important;
-        }
+            .mr-2 {
+                margin-right: 0.5rem !important;
+            }
 
-        .no-gutters {
-            margin-right: 0;
-            margin-left: 0;
-        }
+            .no-gutters {
+                margin-right: 0;
+                margin-left: 0;
+            }
 
-        .no-gutters>.col,
-        .no-gutters>[class*="col-"] {
-            padding-right: 0;
-            padding-left: 0;
-        }
+            .no-gutters>.col,
+            .no-gutters>[class*="col-"] {
+                padding-right: 0;
+                padding-left: 0;
+            }
 
-        .align-items-center {
-            align-items: center !important;
-        }
+            .align-items-center {
+                align-items: center !important;
+            }
 
-        .d-flex {
-            display: flex !important;
-        }
+            .d-flex {
+                display: flex !important;
+            }
 
-        .flex-grow-1 {
-            flex-grow: 1 !important;
-        }
+            .flex-grow-1 {
+                flex-grow: 1 !important;
+            }
 
-        .text-start {
-            text-align: left !important;
-        }
+            .text-start {
+                text-align: left !important;
+            }
 
-        .text-end {
-            text-align: right !important;
-        }
+            .text-end {
+                text-align: right !important;
+            }
 
-        .text-center {
-            text-align: center !important;
-        }
+            .text-center {
+                text-align: center !important;
+            }
 
-        .w-100 {
-            width: 100% !important;
-        }
+            .w-100 {
+                width: 100% !important;
+            }
 
-        .h-100 {
-            height: 100% !important;
-        }
+            .h-100 {
+                height: 100% !important;
+            }
 
-        .rounded {
-            border-radius: 0.35rem !important;
-        }
+            .rounded {
+                border-radius: 0.35rem !important;
+            }
 
-        .rounded-circle {
-            border-radius: 50% !important;
-        }
+            .rounded-circle {
+                border-radius: 50% !important;
+            }
 
-        .opacity-25 {
-            opacity: 0.25 !important;
-        }
+            .opacity-25 {
+                opacity: 0.25 !important;
+            }
 
-        .text-white-50 {
-            color: rgba(255, 255, 255, 0.5) !important;
-        }
-    </style>
-<?php $__env->stopSection(); ?>
+            .text-white-50 {
+                color: rgba(255, 255, 255, 0.5) !important;
+            }
+        </style>
+    <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\laragon-6.0-minimal\www\Aplikasi-Manajemen-inventaris-barang\resources\views/staff/dashboard.blade.php ENDPATH**/ ?>
