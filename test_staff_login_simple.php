@@ -7,7 +7,7 @@ $app = require_once 'bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $kernel->handle(
     $request = Illuminate\Http\Request::create('/test-login', 'POST', [
-        'email' => 'staff@example.com',
+        'email' => 'supplier@example.com',
         'password' => 'password'
     ])
 );
@@ -31,7 +31,7 @@ echo "Password hash: " . $user->password . "\n";
 echo "Password check: " . (Hash::check('password', $user->password) ? 'valid' : 'invalid') . "\n";
 
 // Test authentication
-$result = Auth::attempt(['email' => 'staff@example.com', 'password' => 'password']);
+$result = Auth::attempt(['email' => 'supplier@example.com', 'password' => 'password']);
 
 echo "Login result: " . ($result ? 'success' : 'failed') . "\n";
 

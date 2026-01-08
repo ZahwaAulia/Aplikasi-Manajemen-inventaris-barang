@@ -1,14 +1,38 @@
-# TODO: Make Search Case Insensitive - COMPLETED
+# TODO: Change 'staff' role to 'supplier' in the application
 
-## Controllers Updated
-- [x] ItemController.php - Updated search in index method for name, description, location
-- [x] CategoryController.php - Updated search in index method for name, description
-- [x] SupplierController.php - Updated search in index method for name, contact_email
-- [x] GuestItemController.php - Updated search in index method for name, description, location
+## Database Changes
+- [x] Create new migration to update role enum from 'staff' to 'supplier' in users table
+- [x] Update existing users with role 'staff' to 'supplier' in the database
 
-## Changes Made
-- Replaced `where('column', 'like', '%' . $request->search . '%')` with `whereRaw('LOWER(column) LIKE ?', ['%' . strtolower($request->search) . '%'])`
-- This ensures both the database column and search input are lowercased for case-insensitive matching
+## Model Updates
+- [x] Update User model: change isStaff() to isSupplier(), update role check from 'staff' to 'supplier'
 
-## Summary
-All search functionalities in the inventory management system are now case insensitive. Users can search for items, categories, and suppliers regardless of case differences in their search terms.
+## Controller Updates
+- [x] Update AuthController: change 'staff' references to 'supplier'
+- [x] Update UserController: change 'staff' references to 'supplier'
+- [x] Update SupplierController: change 'staff' references to 'supplier'
+- [x] Update ItemController: change isStaff() calls to isSupplier()
+- [x] Update DashboardController: change staff() method to supplier()
+
+## Middleware Updates
+- [x] Update RoleMiddleware: change 'staff' references to 'supplier'
+- [x] Update VerifyCsrfToken: change 'staff' references to 'supplier'
+
+## Route Updates
+- [x] Update web.php: change 'staff' routes to 'supplier' routes
+
+## View Updates
+- [x] Rename resources/views/staff/ directory to resources/views/supplier/
+- [x] Update view files: change 'staff' references to 'supplier' in content
+- [x] Update sidebar and layout files: change 'staff' references to 'supplier'
+
+## Seeder and Factory Updates
+- [x] Update UserSeeder: change 'staff' role to 'supplier'
+- [x] Update UserFactory: change 'staff' role to 'supplier'
+
+## Test Updates
+- [x] Update test files: change 'staff' references to 'supplier' (test_staff_login.php, test_staff_route.php, etc.)
+- [x] Update test assertions and data
+
+## Additional Files
+- [x] Update any other files with 'staff' references (check_users.php, etc.)

@@ -137,11 +137,11 @@
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ route('staff.items.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('supplier.items.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Kembali
                             </a>
                             <div>
-                                <a href="{{ route('staff.items.edit', $item) }}" class="btn btn-warning">
+                                <a href="{{ route('supplier.items.edit', $item) }}" class="btn btn-warning">
                                     <i class="fas fa-edit me-2"></i>Edit
                                 </a>
                             </div>

@@ -20,8 +20,8 @@ class RoleMiddleware
         if (!in_array($user->role, $roles)) {
             if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
-            } elseif ($user->isStaff()) {
-                return redirect()->route('staff.dashboard');
+            } elseif ($user->isSupplier()) {
+                return redirect()->route('supplier.dashboard');
             } elseif ($user->isGuest()) {
                 return redirect()->route('guest.dashboard');
             }

@@ -199,7 +199,7 @@
                 <label class="form-label">Pilih Role</label>
                 <select name="role" class="form-select @error('role') is-invalid @enderror" required>
                     <option value="">-- Pilih Role --</option>
-                    <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
+                    <option value="supplier" {{ old('role') == 'supplier' ? 'selected' : '' }}>Supplier</option>
                     <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Guest</option>
                 </select>
                 @error('role')

@@ -57,7 +57,7 @@
                                             </td>
                                             <td>
                                                 <span
-                                                    class="badge badge-sm bg-gradient-{{ $user->role === 'admin' ? 'primary' : ($user->role === 'staff' ? 'info' : 'success') }}">
+                                                    class="badge badge-sm bg-gradient-{{ $user->role === 'admin' ? 'primary' : ($user->role === 'supplier' ? 'info' : 'success') }}">
                                                     {{ ucfirst($user->role) }}
                                                 </span>
                                             </td>
@@ -68,7 +68,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                @if ($user->role === 'staff' && $user->status === 'pending')
+                                                @if ($user->role === 'supplier' && $user->status === 'pending')
                                                     <form action="{{ route('admin.users.confirm', $user->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
@@ -82,7 +82,7 @@
                                                         @csrf
                                                         @method('POST')
                                                         <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah Anda yakin ingin menolak registrasi staff ini?')">
+                                                            onclick="return confirm('Apakah Anda yakin ingin menolak registrasi supplier ini?')">
                                                             <i class="fas fa-times"></i> Reject
                                                         </button>
                                                     </form>

@@ -9,7 +9,7 @@
                         <h4>Tambah Supplier</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('staff.suppliers.store') }}" method="POST">
+                        <form action="{{ route('supplier.suppliers.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="d-flex justify-content-between mt-4">
-                                <a href="{{ route('staff.suppliers.index') }}" class="btn btn-secondary">
+                                <a href="{{ route('supplier.suppliers.index') }}" class="btn btn-secondary">
                                     <i class="fas fa-arrow-left me-2"></i>Kembali
                                 </a>
                                 <button type="submit" class="btn btn-primary">

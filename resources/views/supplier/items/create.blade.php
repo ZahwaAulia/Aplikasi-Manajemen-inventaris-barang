@@ -9,7 +9,7 @@
                         <h4>Tambah Barang Baru</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('staff.items.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('supplier.items.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
@@ -190,7 +190,7 @@
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <a href="{{ route('staff.items.index') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('supplier.items.index') }}" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan Barang</button>
                             </div>
                         </form>

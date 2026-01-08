@@ -11,7 +11,7 @@
                                 <h4>Kelola Barang</h4>
                             </div>
                             <div class="col-md-6 text-end">
-                                <a href="{{ route('staff.items.create') }}" class="btn btn-primary">
+                                <a href="{{ route('supplier.items.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Tambah Barang
                                 </a>
                             </div>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-body">
                         <!-- Search and Filter Form -->
-                        <form method="GET" action="{{ route('staff.items.index') }}" class="mb-4">
+                        <form method="GET" action="{{ route('supplier.items.index') }}" class="mb-4">
                             <div class="row">
                                 <div class="col-md-3">
                                     <input type="text" name="search" class="form-control"
@@ -63,7 +63,7 @@
                                     <button type="submit" class="btn btn-secondary me-2">
                                         <i class="fas fa-search"></i> Cari
                                     </button>
-                                    <a href="{{ route('staff.items.index') }}" class="btn btn-outline-secondary">
+                                    <a href="{{ route('supplier.items.index') }}" class="btn btn-outline-secondary">
                                         <i class="fas fa-times"></i> Reset
                                     </a>
                                 </div>
@@ -114,15 +114,15 @@
                                                 </span>
                                             </td>
                                             <td class="d-flex gap-1">
-                                                <a href="{{ route('staff.items.show', $item) }}"
+                                                <a href="{{ route('supplier.items.show', $item) }}"
                                                     class="btn btn-sm btn-info">
                                                     <i class="fas fa-eye me-1"></i> Detail
                                                 </a>
-                                                <a href="{{ route('staff.items.edit', $item) }}"
+                                                <a href="{{ route('supplier.items.edit', $item) }}"
                                                     class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit me-1"></i> Edit
                                                 </a>
-                                                <form action="{{ route('staff.items.destroy', $item) }}" method="POST"
+                                                <form action="{{ route('supplier.items.destroy', $item) }}" method="POST"
                                                     onsubmit="return confirm('Yakin ingin menghapus barang?')">
                                                     @csrf
                                                     @method('DELETE')

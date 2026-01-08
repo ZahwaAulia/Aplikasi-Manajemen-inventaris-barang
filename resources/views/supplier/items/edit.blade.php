@@ -9,7 +9,7 @@
                         <h4>Edit Barang</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('staff.items.update', $item) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('supplier.items.update', $item) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -206,7 +206,7 @@
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <a href="{{ route('staff.items.index') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('supplier.items.index') }}" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Update Barang</button>
                             </div>
                         </form>

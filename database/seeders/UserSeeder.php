@@ -24,10 +24,10 @@ class UserSeeder extends Seeder
 
         // Create staff user
         User::create([
-            'name' => 'Staff User',
-            'email' => 'staff@example.com',
+            'name' => 'Supplier User',
+            'email' => 'supplier@example.com',
             'password' => Hash::make('password'),
-            'role' => 'staff',
+            'role' => 'supplier',
             'status' => 'confirmed',
         ]);
 

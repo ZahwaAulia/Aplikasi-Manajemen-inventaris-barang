@@ -8,7 +8,7 @@
     use App\Http\Controllers\CategoryController;
     use App\Http\Controllers\SupplierController;
     use App\Http\Controllers\GuestItemController;
-    use App\Http\Controllers\ProfileController;
+    use App\Http\Controllers\ProfileController;  
 
     // Route::get('/', function () {
     //     return redirect()->route('login');
@@ -51,17 +51,17 @@
         Route::post('/suppliers/{supplier}/reject', [SupplierController::class, 'reject'])->name('suppliers.reject');
     });
 
-    // Staff Routes
-    Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'staff'])->name('dashboard');
+    // Supplier Routes
+    Route::middleware(['auth', 'role:supplier'])->prefix('supplier')->name('supplier.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'supplier'])->name('dashboard');
 
-        // Items (staff can create and edit)
+        // Items (supplier can create and edit)
         Route::resource('items', ItemController::class);
 
         // Categories (read-only)
         Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
-        // Suppliers (staff can propose and manage their own)
+        // Suppliers (supplier can propose and manage their own)
         Route::resource('suppliers', SupplierController::class)->except(['destroy']);
     });
 

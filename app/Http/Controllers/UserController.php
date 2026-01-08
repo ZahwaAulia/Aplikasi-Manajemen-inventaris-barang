@@ -46,9 +46,9 @@ class UserController extends Controller
             return redirect()->route('admin.users.index')->with('error', 'User not found.');
         }
 
-        if ($user->role === 'staff' && $user->status === 'pending') {
+        if ($user->role === 'supplier' && $user->status === 'pending') {
             $user->update(['status' => 'confirmed']);
-            return redirect()->route('admin.users.index')->with('success', 'Staff account confirmed successfully.');
+            return redirect()->route('admin.users.index')->with('success', 'Supplier account confirmed successfully.');
         }
 
         return redirect()->route('admin.users.index')

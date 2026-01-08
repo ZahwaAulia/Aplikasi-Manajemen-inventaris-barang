@@ -26,8 +26,8 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            // Check if staff is confirmed
-            if ($user->role === 'staff' && !$user->isConfirmed()) {
+            // Check if supplier is confirmed
+            if ($user->role === 'supplier' && !$user->isConfirmed()) {
                 Auth::logout();
                 return back()->withErrors([
                     'email' => 'Your account is pending admin approval.'
@@ -38,8 +38,8 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
 
-            if ($user->role === 'staff') {
-                return redirect()->route('staff.dashboard');
+            if ($user->role === 'supplier') {
+                return redirect()->route('supplier.dashboard');
             }
 
             return redirect()->route('guest.dashboard');
@@ -61,10 +61,10 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:staff,guest'
+            'role' => 'required|in:supplier,guest'
         ]);
 
-        $status = $request->role === 'staff' ? 'pending' : 'confirmed';
+        $status = $request->role === 'supplier' ? 'pending' : 'confirmed';
 
         User::create([
             'name' => $request->name,
@@ -74,7 +74,7 @@ class AuthController extends Controller
             'status' => $status,
         ]);
 
-        $message = $request->role === 'staff'
+        $message = $request->role === 'supplier'
             ? 'Registration successful! Your account is pending admin approval. Please wait for confirmation.'
             : 'Registration successful! Please login.';
 

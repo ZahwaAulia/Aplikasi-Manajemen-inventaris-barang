@@ -54,10 +54,10 @@
                 <span class="nav-link-text ms-1">Pengguna</span>
             </a>
         </li>
-    @elseif(auth()->user()->role == 'staff')
+    @elseif(auth()->user()->role == 'supplier')
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('staff.categories.*') ? 'active' : '' }}"
-                href="{{ route('staff.categories.index') }}">
+            <a class="nav-link {{ request()->routeIs('supplier.categories.*') ? 'active' : '' }}"
+                href="{{ route('supplier.categories.index') }}">
                 <div
                     class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-tag text-success text-sm opacity-10"></i>
@@ -67,8 +67,8 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('staff.suppliers.*') ? 'active' : '' }}"
-                href="{{ route('staff.suppliers.index') }}">
+            <a class="nav-link {{ request()->routeIs('supplier.suppliers.*') ? 'active' : '' }}"
+                href="{{ route('supplier.suppliers.index') }}">
                 <div
                     class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-delivery-fast text-info text-sm opacity-10"></i>

@@ -7,13 +7,13 @@
                  <div class="card">
                      <div class="card-header d-flex justify-content-between align-items-center">
                          <h4>Kelola Supplier</h4>
-                         <a href="{{ route('staff.suppliers.create') }}" class="btn btn-primary">
+                         <a href="{{ route('supplier.suppliers.create') }}" class="btn btn-primary">
                              <i class="fas fa-plus me-2"></i>Tambah Supplier
                          </a>
                      </div>
                      <div class="card-body">
                          <!-- Search Form -->
-                         <form method="GET" action="{{ route('staff.suppliers.index') }}" class="mb-4">
+                        <form method="GET" action="{{ route('supplier.suppliers.index') }}" class="mb-4">
                              <div class="row">
                                  <div class="col-md-6">
                                      <input type="text" name="search" class="form-control"
@@ -23,7 +23,7 @@
                                      <button type="submit" class="btn btn-secondary me-2">
                                          <i class="fas fa-search"></i> Cari
                                      </button>
-                                     <a href="{{ route('staff.suppliers.index') }}" class="btn btn-outline-secondary">
+                                    <a href="{{ route('supplier.suppliers.index') }}" class="btn btn-outline-secondary">
                                          <i class="fas fa-times"></i> Reset
                                      </a>
                                  </div>

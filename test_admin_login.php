@@ -54,7 +54,7 @@ echo "5. Click Login button\n";
 
 echo "\n🔑 Available Test Accounts:\n";
 echo "- Admin: admin@example.com / password\n";
-echo "- Staff: staff@example.com / password\n";
+echo "- Supplier: supplier@example.com / password\n";
 echo "- Guest: guest@example.com / password\n";
 
 echo "\n⚠️  Important: Make sure to select the correct role (Admin/Staff/Guest) in the login form!\n";

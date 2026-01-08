@@ -262,7 +262,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" required>
                     <option value="">-- Pilih Role --</option>
-                    <option value="staff" <?php echo e(old('role') == 'staff' ? 'selected' : ''); ?>>Staff</option>
+                    <option value="supplier" <?php echo e(old('role') == 'supplier' ? 'selected' : ''); ?>>Supplier</option>
                     <option value="guest" <?php echo e(old('role') == 'guest' ? 'selected' : ''); ?>>Guest</option>
                 </select>
                 <?php $__errorArgs = ['role'];

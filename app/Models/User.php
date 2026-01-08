@@ -58,11 +58,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if user is staff
+     * Check if user is supplier
      */
-    public function isStaff()
+    public function isSupplier()
     {
-        return $this->role === 'staff';
+        return $this->role === 'supplier';
     }
 
     /**

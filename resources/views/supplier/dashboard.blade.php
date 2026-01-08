@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-lg-10">
                                 <h2 class="text-white mb-2">Selamat Datang, {{ auth()->user()->name }}!</h2>
-                                <p class="text-white-50 mb-0">Dashboard Staff - Sistem Manajemen Inventaris Barang</p>
+                                <p class="text-white-50 mb-0">Dashboard Supplier - Sistem Manajemen Inventaris Barang</p>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <a href="{{ route('staff.items.index') }}"
+                                <a href="{{ route('supplier.items.index') }}"
                                     class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-boxes fa-2x me-3"></i>
                                     <div class="text-start">
@@ -130,7 +130,7 @@
                                 </a>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <a href="{{ route('staff.suppliers.index') }}"
+                                <a href="{{ route('supplier.suppliers.index') }}"
                                     class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-truck fa-2x me-3"></i>
                                     <div class="text-start">
