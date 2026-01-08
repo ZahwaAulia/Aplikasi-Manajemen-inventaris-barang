@@ -38,39 +38,38 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Admin user created successfully.');
     }
 
-   public function confirm(Request $request, $id)
-{
-    $user = User::find($id);
+    public function confirm(Request $request, $id)
+    {
+        $user = User::find($id);
 
-    if (!$user) {
-        return redirect()->route('admin.users.index')->with('error', 'User not found.');
-    }
+        if (!$user) {
+            return redirect()->route('admin.users.index')->with('error', 'User not found.');
+        }
 
-    if ($user->role === 'staff' && $user->status === 'pending') {
-        $user->update(['status' => 'confirmed']);
-        return redirect()->route('admin.users.index')->with('success', 'Staff account confirmed successfully.');
-    }
+        if ($user->role === 'staff' && $user->status === 'pending') {
+            $user->update(['status' => 'confirmed']);
+            return redirect()->route('admin.users.index')->with('success', 'Staff account confirmed successfully.');
+        }
 
-    return redirect()->route('admin.users.index')
-        ->with('error', 'Unable to confirm this user. Role: ' . ($user->role ?? 'null') . ', Status: ' . ($user->status ?? 'null'));
-}
-
-
-public function reject(Request $request, $id)
-{
-    $user = User::find($id);
-
-    if (!$user) {
-        return redirect()->route('admin.users.index')->with('error', 'User not found.');
-    }
-
-    if ($user->role === 'staff' && $user->status === 'pending') {
-        $user->update(['status' => 'rejected']);
         return redirect()->route('admin.users.index')
-            ->with('success', 'Staff account rejected.');
+            ->with('error', 'Unable to confirm this user. Role: ' . ($user->role ?? 'null') . ', Status: ' . ($user->status ?? 'null'));
     }
 
-    return redirect()->route('admin.users.index')->with('error', 'Unable to reject this user.');
-}
 
+    public function reject(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.users.index')->with('error', 'User not found.');
+        }
+
+        if ($user->role === 'staff' && $user->status === 'pending') {
+            $user->update(['status' => 'rejected']);
+            return redirect()->route('admin.users.index')
+                ->with('success', 'Staff account rejected.');
+        }
+
+        return redirect()->route('admin.users.index')->with('error', 'Unable to reject this user.');
+    }
 }

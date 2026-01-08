@@ -17,7 +17,7 @@ class CategoryController extends Controller
         // Search functionality
         if ($request->has('search') && !empty($request->search)) {
             $query->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%');
+                ->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
         $categories = $query->with(['items.supplier'])->paginate(10);

@@ -13,44 +13,43 @@ class GuestItemController extends Controller
      */
     public function index(Request $request)
     {
-    $query = Item::with(['category', 'supplier']);
+        $query = Item::with(['category', 'supplier']);
 
-    // 🔍 SEARCH
-    if ($request->search) {
-        $query->where(function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->search . '%')
-              ->orWhere('description', 'like', '%' . $request->search . '%');
-        });
-    }
+        // 🔍 SEARCH
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
 
-    // 📦 FILTER KATEGORI
-    if ($request->category_id) {
-        $query->where('category_id', $request->category_id);
-    }
+        // 📦 FILTER KATEGORI
+        if ($request->category_id) {
+            $query->where('category_id', $request->category_id);
+        }
 
-    // 📊 FILTER STATUS
-    if ($request->status) {
-        $query->where('status', $request->status);
-    }
+        // 📊 FILTER STATUS
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
 
-    // 🛠️ FILTER KONDISI
-    if ($request->condition) {
-        $query->where('condition', $request->condition);
-    }
+        // 🛠️ FILTER KONDISI
+        if ($request->condition) {
+            $query->where('condition', $request->condition);
+        }
 
-    // 🔐 PEMBATASAN GUEST
-    if (auth()->check()) {
-        // User login → semua data + pagination
-        $items = $query->paginate(10)->withQueryString();
-    } else {
-        // Guest → hanya lihat sedikit barang
-        $items = $query->limit(4)->get();
-    }
+        // 🔐 PEMBATASAN GUEST
+        if (auth()->check()) {
+            // User login → semua data + pagination
+            $items = $query->paginate(10)->withQueryString();
+        } else {
+            // Guest → hanya lihat sedikit barang
+            $items = $query->limit(4)->get();
+        }
 
-    $categories = Category::all();
+        $categories = Category::all();
 
-    return view('guest.items.index', compact('items', 'categories'));
-
+        return view('guest.items.index', compact('items', 'categories'));
     }
 
     /**

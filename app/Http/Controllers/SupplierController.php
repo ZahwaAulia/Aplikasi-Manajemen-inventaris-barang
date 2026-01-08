@@ -22,7 +22,7 @@ class SupplierController extends Controller
         // Search functionality
         if ($request->has('search') && !empty($request->search)) {
             $query->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('contact_email', 'like', '%' . $request->search . '%');
+                ->orWhere('contact_email', 'like', '%' . $request->search . '%');
         }
 
         $suppliers = $query->paginate(10);
