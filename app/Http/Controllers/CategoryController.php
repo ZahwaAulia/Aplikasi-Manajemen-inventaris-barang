@@ -14,10 +14,11 @@ class CategoryController extends Controller
     {
         $query = Category::query();
 
-        // Search functionality
+        // Search functionality (case insensitive)
         if ($request->has('search') && !empty($request->search)) {
-            $query->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%');
+            $searchTerm = '%' . strtolower($request->search) . '%';
+            $query->whereRaw('LOWER(name) LIKE ?', [$searchTerm])
+                ->orWhereRaw('LOWER(description) LIKE ?', [$searchTerm]);
         }
 
         $categories = $query->with(['items.supplier'])->paginate(10);

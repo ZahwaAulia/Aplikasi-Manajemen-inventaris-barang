@@ -17,12 +17,13 @@ class ItemController extends Controller
     {
         $query = Item::with(['category', 'supplier']);
 
-        // Search functionality
+        // Search functionality (case insensitive)
         if ($request->filled('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('description', 'like', '%' . $request->search . '%')
-                    ->orWhere('location', 'like', '%' . $request->search . '%');
+            $searchTerm = '%' . strtolower($request->search) . '%';
+            $query->where(function ($q) use ($searchTerm) {
+                $q->whereRaw('LOWER(name) LIKE ?', [$searchTerm])
+                    ->orWhereRaw('LOWER(description) LIKE ?', [$searchTerm])
+                    ->orWhereRaw('LOWER(location) LIKE ?', [$searchTerm]);
             });
         }
 

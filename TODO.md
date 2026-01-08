@@ -1,24 +1,14 @@
-# Profile Photo Feature Implementation
+# TODO: Make Search Case Insensitive - COMPLETED
 
-## Tasks to Complete
+## Controllers Updated
+- [x] ItemController.php - Updated search in index method for name, description, location
+- [x] CategoryController.php - Updated search in index method for name, description
+- [x] SupplierController.php - Updated search in index method for name, contact_email
+- [x] GuestItemController.php - Updated search in index method for name, description, location
 
-### Database & Model Updates
-- [x] Create migration to add profile_photo column to users table
-- [x] Update User model to include profile_photo in fillable attributes
+## Changes Made
+- Replaced `where('column', 'like', '%' . $request->search . '%')` with `whereRaw('LOWER(column) LIKE ?', ['%' . strtolower($request->search) . '%'])`
+- This ensures both the database column and search input are lowercased for case-insensitive matching
 
-### Controller & Routes
-- [x] Create ProfileController for handling photo uploads
-- [x] Add profile routes for all user types (admin, staff, guest)
-
-### Views & UI
-- [x] Create profile edit view with photo upload form
-- [x] Update dashboard views to display user profile photos
-- [x] Update sidebar layouts to show profile photos
-
-### File Storage
-- [x] Configure storage for profile photos
-- [x] Create storage link if needed
-
-### Testing
-- [x] Test photo upload functionality for all user types (Note: Tests fail due to SQLite driver not enabled in PHP environment, but functionality is implemented and working)
-- [x] Verify photo display in dashboards and sidebars
+## Summary
+All search functionalities in the inventory management system are now case insensitive. Users can search for items, categories, and suppliers regardless of case differences in their search terms.

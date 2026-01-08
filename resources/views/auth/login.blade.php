@@ -162,20 +162,6 @@
                 @enderror
             </div>
 
-            <!-- Role -->
-            <div class="mb-3">
-                <label class="form-label">Pilih Role</label>
-                <select name="role" class="form-select @error('role') is-invalid @enderror" required>
-                    <option value="">-- Pilih Role --</option>
-                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
-                    <option value="guest" {{ old('role') == 'guest' ? 'selected' : '' }}>Guest</option>
-                </select>
-                @error('role')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
             <!-- Remember -->
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" name="remember" id="remember">

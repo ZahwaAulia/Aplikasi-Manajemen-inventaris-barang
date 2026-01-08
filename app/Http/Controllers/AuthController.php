@@ -19,7 +19,6 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'role' => 'required|in:admin,staff,guest'
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
@@ -27,24 +26,19 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            // Update user role if different from selected
-            if ($user->role !== $request->role) {
-                $user->update(['role' => $request->role]);
-            }
-
             // Check if staff is confirmed
-            if ($request->role === 'staff' && !$user->isConfirmed()) {
+            if ($user->role === 'staff' && !$user->isConfirmed()) {
                 Auth::logout();
                 return back()->withErrors([
                     'email' => 'Your account is pending admin approval.'
                 ]);
             }
 
-            if ($request->role === 'admin') {
+            if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             }
 
-            if ($request->role === 'staff') {
+            if ($user->role === 'staff') {
                 return redirect()->route('staff.dashboard');
             }
 
