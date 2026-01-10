@@ -9,10 +9,11 @@
 
 ## Controller Updates
 - [x] Update AuthController: change 'staff' references to 'supplier'
-- [x] Update UserController: change 'staff' references to 'supplier'
+- - [x] Update UserController: change 'staff' references to 'supplier'
 - [x] Update SupplierController: change 'staff' references to 'supplier'
 - [x] Update ItemController: change isStaff() calls to isSupplier()
 - [x] Update DashboardController: change staff() method to supplier()
+- [x] Update UserController reject method: change 'staff' to 'supplier'
 
 ## Middleware Updates
 - [x] Update RoleMiddleware: change 'staff' references to 'supplier'
@@ -33,6 +34,15 @@
 ## Test Updates
 - [x] Update test files: change 'staff' references to 'supplier' (test_staff_login.php, test_staff_route.php, etc.)
 - [x] Update test assertions and data
+- [x] Rename test files to remove 'staff' from filenames
 
 ## Additional Files
 - [x] Update any other files with 'staff' references (check_users.php, etc.)
+- [x] Clean up outdated VSCode tabs showing staff paths (these are cached and don't reflect actual file structure)
+
+## Issue Resolution
+- [x] Fixed BadMethodCallException: DashboardController::supplier method not found
+- [x] Cleared all Laravel caches (route, config, view, application cache)
+- [x] Verified route registration and method existence
+- [x] Confirmed syntax validation passes
+- [x] Fix DashboardController method name from staff() to supplier() and update view reference

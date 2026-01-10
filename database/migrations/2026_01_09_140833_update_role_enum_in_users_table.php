@@ -12,6 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // First update the enum to include 'supplier'
+        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'staff', 'supplier', 'guest') NOT NULL DEFAULT 'guest'");
+
+        // Then update existing 'staff' roles to 'supplier'
+        DB::table('users')->where('role', 'staff')->update(['role' => 'supplier']);
+
+        // Finally, update the enum to remove 'staff'
         DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'supplier', 'guest') NOT NULL DEFAULT 'guest'");
     }
 
@@ -20,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'staff', 'guest') NOT NULL DEFAULT 'guest'");
+        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'supplier', 'guest') NOT NULL DEFAULT 'guest'");
     }
 };

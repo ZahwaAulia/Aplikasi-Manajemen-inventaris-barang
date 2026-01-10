@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'status' => 'confirmed',
         ]);
 
-        // Create staff user
+        // Create supplier user
         User::create([
             'name' => 'Supplier User',
             'email' => 'supplier@example.com',

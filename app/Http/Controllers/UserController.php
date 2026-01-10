@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.users.create');  
     }
 
     public function store(Request $request)
@@ -64,10 +64,10 @@ class UserController extends Controller
             return redirect()->route('admin.users.index')->with('error', 'User not found.');
         }
 
-        if ($user->role === 'staff' && $user->status === 'pending') {
+        if ($user->role === 'supplier' && $user->status === 'pending') {
             $user->update(['status' => 'rejected']);
             return redirect()->route('admin.users.index')
-                ->with('success', 'Staff account rejected.');
+                ->with('success', 'Supplier account rejected.');
         }
 
         return redirect()->route('admin.users.index')->with('error', 'Unable to reject this user.');
