@@ -63,7 +63,7 @@
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Total Supplier
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers ?? 0 }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-truck fa-2x text-success"></i>
@@ -99,7 +99,8 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Supplier Aktif
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers ?? 0 }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->supplier ? 1 : 0 }}
+</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-star fa-2x text-warning"></i>

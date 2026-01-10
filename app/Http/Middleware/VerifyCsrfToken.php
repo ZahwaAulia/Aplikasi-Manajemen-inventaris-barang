@@ -18,5 +18,7 @@ class VerifyCsrfToken extends Middleware
         'guest/login',
         '/login',
         'guest/dashboard',
+        '*/login', // Exclude all login routes
+        'login/*', // Exclude login with any prefix
     ];
 }

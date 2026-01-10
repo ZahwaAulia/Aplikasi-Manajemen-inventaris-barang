@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 // Test direct user lookup
-$user = User::where('email', 'staff@example.com')->first();
+$user = User::where('email', 'supplier@example.com')->first();
 
 if (!$user) {
-    echo "Staff user not found\n";
+    echo "Supplier user not found\n";
     exit;
 }
 
