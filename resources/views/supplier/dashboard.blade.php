@@ -99,7 +99,7 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Supplier Aktif
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->supplier ? 1 : 0 }}
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->isSupplier() ? 1 : 0 }}
 </div>
                             </div>
                             <div class="col-auto">
