@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $__empty_1 = true; $__currentLoopData = $supplier; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                    <?php $__empty_1 = true; $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                         <tr>
                                             <td><?php echo e($sup->name); ?></td>
                                             <td><?php echo e($sup->contact_email ?? '-'); ?></td>
@@ -73,7 +73,7 @@
                         </div>
 
                         <!-- Pagination -->
-                        <?php echo e($supplier->links()); ?>
+                        <?php echo e($suppliers->links()); ?>
 
                     </div>
                 </div>

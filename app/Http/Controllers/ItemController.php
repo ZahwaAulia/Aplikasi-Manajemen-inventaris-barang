@@ -17,9 +17,11 @@ class ItemController extends Controller
     {
         $query = Item::with(['category', 'supplier']);
 
-        // For suppliers, only show their own items that are approved (tersedia) or borrowed (dipinjam)
+        // For suppliers, only show items linked to suppliers they created (by email)
         if (auth()->user()->isSupplier()) {
-            $query->where('supplier_id', auth()->id())->whereIn('status', ['tersedia', 'dipinjam']);
+            $query->whereHas('supplier', function ($q) {
+                $q->where('contact_email', auth()->user()->email);
+            })->whereIn('status', ['tersedia', 'dipinjam']);
         }
 
         // Search functionality (case insensitive)

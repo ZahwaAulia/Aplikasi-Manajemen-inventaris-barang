@@ -49,7 +49,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($supplier as $sup)
+                                    @forelse($suppliers as $sup)
                                         <tr>
                                             <td>{{ $sup->name }}</td>
                                             <td>{{ $sup->contact_email ?? '-' }}</td>
@@ -75,7 +75,7 @@
                         </div>
 
                         <!-- Pagination -->
-                        {{ $supplier->links() }}
+                        {{ $suppliers->links() }}
                     </div>
                 </div>
             </div>

@@ -94,27 +94,37 @@ class DashboardController extends Controller
     // ================= SUPPLIER DASHBOARD =================
     public function supplier()
     {
-        $supplierId = auth()->user()->id;
+        $userEmail = auth()->user()->email;
 
-        $totalItems = Item::where('supplier_id', $supplierId)->count();
+        $totalItems = Item::whereHas('supplier', function ($q) use ($userEmail) {
+            $q->where('contact_email', $userEmail);
+        })->count();
 
-        $availableItems = Item::where('supplier_id', $supplierId)
-            ->where('status', 'tersedia')->count();
-        $borrowedItems = Item::where('supplier_id', $supplierId)
-            ->where('status', 'dipinjam')->count();
-        $damagedItems = Item::where('supplier_id', $supplierId)
-            ->where('status', 'dikeluarkan')->count();
+        $availableItems = Item::whereHas('supplier', function ($q) use ($userEmail) {
+            $q->where('contact_email', $userEmail);
+        })->where('status', 'tersedia')->count();
 
-        // Recent items by this supplier
-        $recentItems = Item::where('supplier_id', $supplierId)
-            ->with(['category', 'supplier'])
+        $borrowedItems = Item::whereHas('supplier', function ($q) use ($userEmail) {
+            $q->where('contact_email', $userEmail);
+        })->where('status', 'dipinjam')->count();
+
+        $damagedItems = Item::whereHas('supplier', function ($q) use ($userEmail) {
+            $q->where('contact_email', $userEmail);
+        })->where('status', 'dikeluarkan')->count();
+
+        // Recent items linked to suppliers created by this user
+        $recentItems = Item::whereHas('supplier', function ($q) use ($userEmail) {
+            $q->where('contact_email', $userEmail);
+        })->with(['category', 'supplier'])
             ->latest()
             ->take(5)
             ->get();
 
-        // Categories with item counts for this supplier
-        $categories = Category::withCount(['items' => function ($query) use ($supplierId) {
-            $query->where('supplier_id', $supplierId);
+        // Categories with item counts for suppliers created by this user
+        $categories = Category::withCount(['items' => function ($query) use ($userEmail) {
+            $query->whereHas('supplier', function ($q) use ($userEmail) {
+                $q->where('contact_email', $userEmail);
+            });
         }])->get();
 
         return view('supplier.dashboard', compact(

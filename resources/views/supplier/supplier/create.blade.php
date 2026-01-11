@@ -25,7 +25,7 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="contact_email" class="form-label">Email Kontak</label>
                                     <input type="email" class="form-control @error('contact_email') is-invalid @enderror"
-                                        id="contact_email" name="contact_email" value="{{ old('contact_email') }}">
+                                        id="contact_email" name="contact_email" value="{{ old('contact_email', auth()->user()->email) }}" readonly>
                                     @error('contact_email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

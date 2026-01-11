@@ -14,9 +14,10 @@ class SupplierController extends Controller
     {
         $query = Supplier::query();
 
-        // Supplier can only see approved suppliers
+        // Supplier can only see their own approved suppliers
         if (auth()->user()->role === 'supplier') {
-            $query->where('status', 'approved');
+            $query->where('status', 'approved')
+                  ->where('contact_email', auth()->user()->email);
         }
 
         // Search functionality
@@ -53,6 +54,10 @@ class SupplierController extends Controller
         ]);
 
         $data = $request->all();
+        // If contact_email is not provided, use the authenticated user's email
+        if (empty($data['contact_email'])) {
+            $data['contact_email'] = auth()->user()->email;
+        }
         $data['status'] = auth()->user()->role === 'supplier' ? 'pending' : 'approved';
 
         Supplier::create($data);
