@@ -1,5 +1,4 @@
-outes/web.php</path>
-<parameter name="content"><?php
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -42,6 +41,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Items
     Route::resource('items', ItemController::class);
+    Route::post('/items/{item}/approve', [ItemController::class, 'approve'])->name('items.approve');
 
     // Categories
     Route::resource('categories', CategoryController::class);

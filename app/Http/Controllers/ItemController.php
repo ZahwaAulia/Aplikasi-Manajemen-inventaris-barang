@@ -17,6 +17,11 @@ class ItemController extends Controller
     {
         $query = Item::with(['category', 'supplier']);
 
+        // For suppliers, only show their own items that are approved (tersedia) or borrowed (dipinjam)
+        if (auth()->user()->isSupplier()) {
+            $query->where('supplier_id', auth()->id())->whereIn('status', ['tersedia', 'dipinjam']);
+        }
+
         // Search functionality (case insensitive)
         if ($request->filled('search')) {
             $searchTerm = '%' . strtolower($request->search) . '%';
@@ -81,7 +86,8 @@ class ItemController extends Controller
         ]);
 
         $data = $request->all();
-        $data['status'] = 'tersedia';
+        // Set status to 'pending' for suppliers, 'tersedia' for admins
+        $data['status'] = auth()->user()->isSupplier() ? 'pending' : 'tersedia';
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('items', 'public');
         }
@@ -129,7 +135,7 @@ class ItemController extends Controller
             'condition' => 'required|in:baik,rusak,perlu_perbaikan',
             'purchase_date' => 'nullable|date',
             'warranty_expiry' => 'nullable|date|after:purchase_date',
-            'status' => 'required|in:tersedia,dipinjam,dikeluarkan',
+            'status' => 'required|in:pending,tersedia,dipinjam,dikeluarkan',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -163,5 +169,24 @@ class ItemController extends Controller
 
         $redirectRoute = auth()->user()->isSupplier() ? 'supplier.items.index' : 'admin.items.index';
         return redirect()->route($redirectRoute)->with('success', 'Barang berhasil dihapus.');
+    }
+
+    /**
+     * Approve a pending item.
+     */
+    public function approve(Item $item)
+    {
+        // Only admin can approve items
+        if (!auth()->user()->isAdmin()) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menyetujui barang.');
+        }
+
+        if ($item->status !== 'pending') {
+            return redirect()->back()->with('error', 'Barang ini sudah disetujui atau tidak valid.');
+        }
+
+        $item->update(['status' => 'tersedia']);
+
+        return redirect()->back()->with('success', 'Barang berhasil disetujui.');
     }
 }

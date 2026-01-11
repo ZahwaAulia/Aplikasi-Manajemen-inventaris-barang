@@ -27,7 +27,7 @@ class SupplierController extends Controller
 
         $supplier = $query->paginate(10);
 
-        $view = auth()->user()->role === 'supplier' ? 'supplier.supplier.index' : 'admin.supplier.index';
+        $view = auth()->user()->role === 'supplier' ? 'supplier.supplier.index' : 'admin.suppliers.index';
         return view($view, compact('supplier'));
     }
 
@@ -36,7 +36,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $view = auth()->user()->role === 'supplier' ? 'supplier.supplier.create' : 'admin.supplier.create';
+        $view = auth()->user()->role === 'supplier' ? 'supplier.supplier.create' : 'admin.suppliers.create';
         return view($view);
     }
 
@@ -57,7 +57,7 @@ class SupplierController extends Controller
 
         Supplier::create($data);
 
-        $route = auth()->user()->role === 'supplier' ? 'supplier.supplier.index' : 'admin.supplier.index';
+        $route = auth()->user()->role === 'supplier' ? 'supplier.suppliers.index' : 'admin.suppliers.index';
         return redirect()->route($route)->with('success', 'Supplier berhasil ditambahkan.');
     }
 
@@ -66,7 +66,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        return view('admin.supplier.show', compact('supplier'));
+        return view('admin.suppliers.show', compact('supplier'));
     }
 
     /**
@@ -84,7 +84,7 @@ class SupplierController extends Controller
     {
         // Supplier cannot update suppliers
         if (auth()->user()->role === 'supplier') {
-            return redirect()->route('supplier.supplier.index')->with('error', 'Anda tidak memiliki izin untuk mengupdate supplier.');
+            return redirect()->route('supplier.suppliers.index')->with('error', 'Anda tidak memiliki izin untuk mengupdate supplier.');
         }
 
         $request->validate([
@@ -96,7 +96,7 @@ class SupplierController extends Controller
 
         $supplier->update($request->all());
 
-        return redirect()->route('admin.supplier.index')->with('success', 'Supplier berhasil diperbarui.');
+        return redirect()->route('admin.suppliers.index')->with('success', 'Supplier berhasil diperbarui.');
     }
 
     /**
@@ -106,12 +106,12 @@ class SupplierController extends Controller
     {
         // Supplier cannot delete suppliers
         if (auth()->user()->role === 'supplier') {
-            return redirect()->route('supplier.supplier.index')->with('error', 'Anda tidak memiliki izin untuk menghapus supplier.');
+            return redirect()->route('supplier.suppliers.index')->with('error', 'Anda tidak memiliki izin untuk menghapus supplier.');
         }
 
         $supplier->delete();
 
-        return redirect()->route('admin.supplier.index')->with('success', 'Supplier berhasil dihapus.');
+        return redirect()->route('admin.suppliers.index')->with('success', 'Supplier berhasil dihapus.');
     }
 
     /**

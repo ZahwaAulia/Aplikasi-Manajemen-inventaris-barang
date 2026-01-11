@@ -13,7 +13,7 @@ class GuestItemController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Item::with(['category', 'supplier']);
+        $query = Item::with(['category', 'supplier'])->whereIn('status', ['tersedia', 'dipinjam']);
 
         // 🔍 SEARCH (case insensitive)
         if ($request->search) {
@@ -74,7 +74,7 @@ class GuestItemController extends Controller
      */
     public function show(string $id)
     {
-        $item = Item::with(['category', 'supplier'])->findOrFail($id);
+        $item = Item::with(['category', 'supplier'])->where('status', 'tersedia')->findOrFail($id);
 
         return view('guest.items.show', compact('item'));
     }

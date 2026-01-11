@@ -78,13 +78,52 @@ class DashboardController extends Controller
     {
         $categories = Category::withCount('items')->get();
 
+        $totalAvailableItems = Item::where('status', 'tersedia')->count();
+
         $availableItems = Item::where('status', 'tersedia')
             ->with(['category', 'supplier'])
             ->paginate(12);
 
         return view('guest.dashboard', compact(
             'categories',
+            'totalAvailableItems',
             'availableItems'
+        ));
+    }
+
+    // ================= SUPPLIER DASHBOARD =================
+    public function supplier()
+    {
+        $supplierId = auth()->user()->id;
+
+        $totalItems = Item::where('supplier_id', $supplierId)->count();
+
+        $availableItems = Item::where('supplier_id', $supplierId)
+            ->where('status', 'tersedia')->count();
+        $borrowedItems = Item::where('supplier_id', $supplierId)
+            ->where('status', 'dipinjam')->count();
+        $damagedItems = Item::where('supplier_id', $supplierId)
+            ->where('status', 'dikeluarkan')->count();
+
+        // Recent items by this supplier
+        $recentItems = Item::where('supplier_id', $supplierId)
+            ->with(['category', 'supplier'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Categories with item counts for this supplier
+        $categories = Category::withCount(['items' => function ($query) use ($supplierId) {
+            $query->where('supplier_id', $supplierId);
+        }])->get();
+
+        return view('supplier.dashboard', compact(
+            'totalItems',
+            'availableItems',
+            'borrowedItems',
+            'damagedItems',
+            'recentItems',
+            'categories'
         ));
     }
 }
