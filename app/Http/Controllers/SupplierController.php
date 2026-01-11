@@ -25,10 +25,10 @@ class SupplierController extends Controller
                 ->orWhere('contact_email', 'like', '%' . $request->search . '%');
         }
 
-        $supplier = $query->paginate(10);
+        $suppliers = $query->paginate(10);
 
         $view = auth()->user()->role === 'supplier' ? 'supplier.supplier.index' : 'admin.suppliers.index';
-        return view($view, compact('supplier'));
+        return view($view, compact('suppliers'));
     }
 
     /**
@@ -131,5 +131,24 @@ class SupplierController extends Controller
         $supplier->update(['status' => 'approved']);
 
         return redirect()->back()->with('success', 'Supplier berhasil disetujui.');
+    }
+
+    /**
+     * Reject a pending supplier.
+     */
+    public function reject(Supplier $supplier)
+    {
+        // Only admin can reject suppliers
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menolak supplier.');
+        }
+
+        if ($supplier->status !== 'pending') {
+            return redirect()->back()->with('error', 'Supplier ini sudah disetujui atau tidak valid.');
+        }
+
+        $supplier->update(['status' => 'rejected']);
+
+        return redirect()->back()->with('success', 'Supplier berhasil ditolak.');
     }
 }

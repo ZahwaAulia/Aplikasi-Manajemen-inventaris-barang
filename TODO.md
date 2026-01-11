@@ -48,3 +48,11 @@
 - [x] Fix DashboardController method name from staff() to supplier() and update view reference
 - [x] Update test files: change 'staff' references to 'supplier' (test_staff_login.php, test_staff_route.php, etc.)
 - [x] Rename test files to remove 'staff' from filenames
+
+## Suppliers Index Error Fix
+- [x] Fix undefined variable $suppliers in admin suppliers index view
+- [x] Update SupplierController to use $suppliers instead of $supplier
+- [x] Add Status column header in admin suppliers index view
+- [x] Add reject method in SupplierController
+- [x] Create migration to add 'rejected' to suppliers status enum
+- [x] Run migration to update database schema
