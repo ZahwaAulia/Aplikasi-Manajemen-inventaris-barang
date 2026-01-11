@@ -43,7 +43,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total Barang
+                                    Total Barang Saya
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalItems }}</div>
                             </div>
@@ -61,30 +61,12 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Total Supplier
+                                    Barang Tersedia
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalSuppliers }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $availableItems }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-truck fa-2x text-success"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Barang Aktif
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalItems }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-check-circle fa-2x text-info"></i>
+                                <i class="fas fa-check-circle fa-2x text-success"></i>
                             </div>
                         </div>
                     </div>
@@ -97,13 +79,30 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Supplier Aktif
+                                    Barang Dipinjam
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->isSupplier() ? 1 : 0 }}
-</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $borrowedItems }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-star fa-2x text-warning"></i>
+                                <i class="fas fa-hand-holding fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    Barang Rusak
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $damagedItems }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
                             </div>
                         </div>
                     </div>
@@ -141,6 +140,84 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Items and Categories -->
+        <div class="row">
+            <!-- Recent Items -->
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Barang Terbaru Saya</h6>
+                    </div>
+                    <div class="card-body">
+                        @if($recentItems->count() > 0)
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Barang</th>
+                                            <th>Kategori</th>
+                                            <th>Status</th>
+                                            <th>Tanggal Dibuat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($recentItems as $item)
+                                            <tr>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->category->name ?? 'N/A' }}</td>
+                                                <td>
+                                                    <span class="badge
+                                                        @if($item->status == 'tersedia') bg-success
+                                                        @elseif($item->status == 'dipinjam') bg-warning
+                                                        @else bg-danger
+                                                        @endif">
+                                                        {{ ucfirst($item->status) }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ $item->created_at->format('d M Y') }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="text-center py-4">
+                                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">Belum ada barang yang ditambahkan</p>
+                                <a href="{{ route('supplier.items.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Tambah Barang Pertama
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Summary -->
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Kategori Barang Saya</h6>
+                    </div>
+                    <div class="card-body">
+                        @if($categories->count() > 0)
+                            @foreach($categories as $category)
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>{{ $category->name }}</span>
+                                    <span class="badge bg-primary">{{ $category->items_count }} barang</span>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="text-center py-4">
+                                <i class="fas fa-tags fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">Belum ada kategori</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

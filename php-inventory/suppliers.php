@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $contact_phone = $_POST['contact_phone'];
         $address = $_POST['address'];
 
-        $stmt = $conn->prepare("INSERT INTO suppliers (name, contact_email, contact_phone, address) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO supplier (name, contact_email, contact_phone, address) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $name, $contact_email, $contact_phone, $address);
 
         if ($stmt->execute()) {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $contact_phone = $_POST['contact_phone'];
         $address = $_POST['address'];
 
-        $stmt = $conn->prepare("UPDATE suppliers SET name=?, contact_email=?, contact_phone=?, address=? WHERE id=?");
+        $stmt = $conn->prepare("UPDATE supplier SET name=?, contact_email=?, contact_phone=?, address=? WHERE id=?");
         $stmt->bind_param("ssssi", $name, $contact_email, $contact_phone, $address, $id);
 
         if ($stmt->execute()) {
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (isset($_POST['delete_supplier'])) {
         $id = $_POST['id'];
 
-        $stmt = $conn->prepare("DELETE FROM suppliers WHERE id=?");
+        $stmt = $conn->prepare("DELETE FROM supplier WHERE id=?");
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
@@ -50,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Get all suppliers
-$suppliers = $conn->query("SELECT s.*, COUNT(i.id) as item_count FROM suppliers s LEFT JOIN items i ON s.id = i.supplier_id GROUP BY s.id ORDER BY s.name");
+// Get all supplier
+$supplier= $conn->query("SELECT s.*, COUNT(i.id) as item_count FROM supplier s LEFT JOIN items i ON s.id = i.supplier_id GROUP BY s.id ORDER BY s.name");
 
 // Get supplier for editing if requested
 $edit_supplier = null;
 if (isset($_GET['edit'])) {
     $edit_id = $_GET['edit'];
-    $stmt = $conn->prepare("SELECT * FROM suppliers WHERE id=?");
+    $stmt = $conn->prepare("SELECT * FROM supplier WHERE id=?");
     $stmt->bind_param("i", $edit_id);
     $stmt->execute();
     $edit_supplier = $stmt->get_result()->fetch_assoc();
@@ -96,7 +96,7 @@ if (isset($_GET['edit'])) {
                         <a class="nav-link" href="categories.php">Kategori</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="suppliers.php">Supplier</a>
+                        <a class="nav-link active" href="supplier.php">Supplier</a>
                     </li>
                 </ul>
             </div>
@@ -137,7 +137,7 @@ if (isset($_GET['edit'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($supplier = $suppliers->fetch_assoc()): ?>
+                            <?php while($supplier = $supplier->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo $supplier['id']; ?></td>
                                 <td><?php echo htmlspecialchars($supplier['name']); ?></td>
@@ -219,7 +219,7 @@ if (isset($_GET['edit'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Supplier</h5>
-                    <a href="suppliers.php" class="btn-close"></a>
+                    <a href="supplier.php" class="btn-close"></a>
                 </div>
                 <form method="POST">
                     <input type="hidden" name="id" value="<?php echo $edit_supplier['id']; ?>">
@@ -254,7 +254,7 @@ if (isset($_GET['edit'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="suppliers.php" class="btn btn-secondary">Batal</a>
+                        <a href="supplier.php" class="btn btn-secondary">Batal</a>
                         <button type="submit" name="update_supplier" class="btn btn-info">Update</button>
                     </div>
                 </form>
