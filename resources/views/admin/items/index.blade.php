@@ -120,7 +120,7 @@
                                                     class="btn btn-sm btn-info" title="Lihat Detail">
                                                     <i class="fas fa-eye"></i> Lihat
                                                 </a>
-                                                @if($item->status == 'pending')
+                                                @if ($item->status == 'pending')
                                                     <form action="{{ route('admin.items.approve', $item) }}" method="POST"
                                                         class="d-inline">
                                                         @csrf

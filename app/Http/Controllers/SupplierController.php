@@ -17,7 +17,7 @@ class SupplierController extends Controller
         // Supplier can only see their own approved suppliers
         if (auth()->user()->role === 'supplier') {
             $query->where('status', 'approved')
-                  ->where('contact_email', auth()->user()->email);
+                ->where('contact_email', auth()->user()->email);
         }
 
         // Search functionality
